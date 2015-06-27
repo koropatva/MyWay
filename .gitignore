@@ -1,5 +1,20 @@
 *.class
-
+.classpath
+.git/*
+.gradle/*
+.project
+.settings
+myway/.classpath
+myway/.project
+myway/.settings
+myway/bin/*
+myway/build/*
+myway/output.log
+myway-interfaces/.classpath
+myway-interfaces/.project
+myway-interfaces/.settings
+myway-interfaces/bin/*
+myway-interfaces/build/*
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
