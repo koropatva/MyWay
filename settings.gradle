@@ -1,0 +1,4 @@
+include 'myway', 'myway-interfaces'
+
+project(':myway').name='myway'
+project(':myway-interfaces').name='myway-interfaces'

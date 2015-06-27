@@ -1,0 +1,36 @@
+buildscript {
+	repositories {
+		mavenLocal()
+		maven {
+			url uri('libs')
+		}
+	}
+	dependencies {
+		classpath 'com.hmel:builder:0.1-SNAPSHOT'
+	}
+}
+apply plugin: 'builder'
+
+apply plugin: 'eclipse'
+apply plugin: 'java'
+
+
+jar {
+        baseName = 'myway'
+        version = '0.0.1'
+}
+
+repositories {
+    	mavenCentral()
+}
+configurations{
+	driver
+}
+dependencies {
+	driver "mysql:mysql-connector-java:5.1.18"
+	compile "org.springframework:spring-web:4.0.3.RELEASE"
+}
+URLClassLoader loader = GroovyObject.class.classLoader
+configurations.driver.each {File file ->
+	loader.addURL(file.toURL())
+}
