@@ -29,11 +29,7 @@
 	<bean id="localSessionFactory"
 		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
-		<property name="annotatedClasses">
-			<list>
-				<value>com.hmel.myway.central.models.Phone</value>
-			</list>
-		</property>
+		<property name="packagesToScan" value="com.hmel.myway.central.models" />
 		<property name="hibernateProperties">
 			<props>
 				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
