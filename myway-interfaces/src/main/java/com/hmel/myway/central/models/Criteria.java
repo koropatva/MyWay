@@ -86,4 +86,11 @@ public class Criteria implements Serializable {
 		this.modifiedTime = modifiedTime;
 	}
 
+	@Override
+	public String toString() {
+		return "Criteria [id=" + id + ", name=" + name + ", description="
+				+ description + ", type=" + type + ", creationTime="
+				+ creationTime + ", modifiedTime=" + modifiedTime + "]";
+	}
+
 }

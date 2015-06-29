@@ -1,4 +1,4 @@
-package com.hmel.myway;
+package com.hmel.myway.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
@@ -10,5 +10,4 @@ import org.springframework.context.annotation.ImportResource;
 @ImportResource("classpath:spring-context.xml")
 public class Config {
   
-
 }
