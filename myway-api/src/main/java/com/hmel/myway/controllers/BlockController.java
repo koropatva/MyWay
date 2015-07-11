@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.hmel.myway.central.blogic.interfaces.ICriteriaService;
-import com.hmel.myway.central.models.Criteria;
+import com.hmel.myway.central.blogic.interfaces.IBlockService;
+import com.hmel.myway.central.models.Block;
 import com.hmel.myway.exceptions.PhoneDictionaryException;
 
 /**
@@ -20,23 +20,23 @@ import com.hmel.myway.exceptions.PhoneDictionaryException;
  */
 
 @Controller
-@RequestMapping(value = "/criteria")
-public class CriteriaController {
+@RequestMapping(value = "/block")
+public class BlockController {
 
 	@Autowired
-	private ICriteriaService iCriteriaService;
+	private IBlockService iBlockService;
 
 	private static final Logger logger = LoggerFactory
-			.getLogger(CriteriaController.class);
+			.getLogger(BlockController.class);
 
 	@RequestMapping(method = RequestMethod.POST, headers = "content-type=application/json")
-	public ResponseEntity<Criteria> save(@RequestBody Criteria criteria)
+	public ResponseEntity<Block> save(@RequestBody Block block)
 			throws PhoneDictionaryException {
 		try {
-			criteria = iCriteriaService.save(criteria);
-			criteria = iCriteriaService.findOne(criteria.getId());
-			logger.info("Save criteria: " + criteria.toString());
-			return new ResponseEntity<Criteria>(criteria, HttpStatus.OK);
+			block = iBlockService.save(block);
+			block = iBlockService.findOne(block.getId());
+			logger.info("Save block: " + block.toString());
+			return new ResponseEntity<Block>(block, HttpStatus.OK);
 		} catch (PhoneDictionaryException e) {
 			logger.error(e.getMessage(), e);
 			throw new PhoneDictionaryException();
@@ -44,19 +44,16 @@ public class CriteriaController {
 	}
 
 	@RequestMapping(method = RequestMethod.PUT, headers = "content-type=application/json")
-	public ResponseEntity<Criteria> update(@RequestBody Criteria criteria)
+	public ResponseEntity<Block> update(@RequestBody Block block)
 			throws PhoneDictionaryException {
 		try {
-			if (criteria.getId() != 0) {
-				criteria = iCriteriaService.update(criteria);
-				criteria = iCriteriaService.findOne(criteria.getId());
-				logger.info("Update block: " + criteria.toString());
-				return new ResponseEntity<Criteria>(criteria, HttpStatus.OK);
+			if (block.getId() != 0) {
+				block = iBlockService.update(block);
+				block = iBlockService.findOne(block.getId());
+				logger.info("Update block: " + block.toString());
+				return new ResponseEntity<Block>(block, HttpStatus.OK);
 			} else {
-				logger.info("Badrequest for update criteria: "
-						+ criteria.toString());
-				return new ResponseEntity<Criteria>(criteria,
-						HttpStatus.BAD_REQUEST);
+				return new ResponseEntity<Block>(block, HttpStatus.BAD_REQUEST);
 			}
 		} catch (PhoneDictionaryException e) {
 			logger.error(e.getMessage(), e);
@@ -65,12 +62,13 @@ public class CriteriaController {
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET, headers = "content-type=application/json")
-	public ResponseEntity<Criteria> get(@PathVariable("id") Long id)
+	public ResponseEntity<Block> get(@PathVariable("id") Long id)
 			throws PhoneDictionaryException {
 		try {
-			Criteria criteria = iCriteriaService.findOne(id);
-			logger.info("Get criteria: " + criteria.toString());
-			return new ResponseEntity<Criteria>(criteria, HttpStatus.OK);
+			Block block = iBlockService.findOne(id);
+			
+			logger.info("Get block: " + block.toString());
+			return new ResponseEntity<Block>(block, HttpStatus.OK);
 		} catch (PhoneDictionaryException e) {
 			logger.error(e.getMessage(), e);
 			throw new PhoneDictionaryException();
@@ -78,12 +76,12 @@ public class CriteriaController {
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE, headers = "content-type=application/json")
-	public ResponseEntity<Criteria> delete(@PathVariable("id") Long id)
+	public ResponseEntity<Block> delete(@PathVariable("id") Long id)
 			throws PhoneDictionaryException {
 		try {
-			iCriteriaService.deleteById(id);
-			logger.info("Delete criteria by ID: " + id.toString());
-			return new ResponseEntity<Criteria>(HttpStatus.OK);
+			iBlockService.deleteById(id);
+			logger.info("Delete block by ID: " + id);
+			return new ResponseEntity<Block>(HttpStatus.OK);
 		} catch (PhoneDictionaryException e) {
 			logger.error(e.getMessage(), e);
 			throw new PhoneDictionaryException();
