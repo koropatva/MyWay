@@ -1,5 +1,8 @@
 package com.hmel.myway.controllers;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,13 +68,25 @@ public class DestinationController {
 			throw new PhoneDictionaryException();
 		}
 	}
+	
+	@RequestMapping(method=RequestMethod.GET, headers = "Accept=application/json")
+	  public ResponseEntity<List<Destination>> getAll() {
+		logger.info("Get all destination ");
+		List<Destination> res = new ArrayList<>();
+		try {
+			res = iDestinationService.findAll();
+		} catch (PhoneDictionaryException e) {
+			logger.error(e.getMessage(), e);
+		}
+		return new ResponseEntity<List<Destination>>(res, HttpStatus.OK);
+	  }
 
-	@RequestMapping(value = "/{id}", method = RequestMethod.GET, headers = "content-type=application/json")
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET, headers = "Accept=application/json")
 	public ResponseEntity<Destination> get(@PathVariable("id") Long id)
 			throws PhoneDictionaryException {
+		logger.info("Get destination by ID: " + id);
 		try {
 			Destination destination = iDestinationService.findOne(id);
-			logger.info("Get destination by ID: " + destination.toString());
 			return new ResponseEntity<Destination>(destination, HttpStatus.OK);
 		} catch (PhoneDictionaryException e) {
 			logger.error(e.getMessage(), e);
