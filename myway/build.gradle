@@ -53,6 +53,8 @@ dependencies {
 
 	
 	compile project (":myway-interfaces")
+	
+	compile "org.apache.commons:commons-lang3:3.0"
 }
 task wrapper(type:Wrapper){
 	gradleVersion='2.4'

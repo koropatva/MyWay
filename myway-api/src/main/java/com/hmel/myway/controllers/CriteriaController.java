@@ -11,8 +11,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.hmel.myway.central.blogic.interfaces.IAutosuggestService;
 import com.hmel.myway.central.blogic.interfaces.ICriteriaService;
+import com.hmel.myway.central.models.Autosuggest;
 import com.hmel.myway.central.models.Criteria;
+import com.hmel.myway.exceptions.MyWayException;
 import com.hmel.myway.exceptions.PhoneDictionaryException;
 
 /**
@@ -26,12 +29,13 @@ public class CriteriaController {
 	@Autowired
 	private ICriteriaService iCriteriaService;
 
-	private static final Logger logger = LoggerFactory
-			.getLogger(CriteriaController.class);
+	@Autowired
+	private IAutosuggestService iAutosuggestService;
+
+	private static final Logger logger = LoggerFactory.getLogger(CriteriaController.class);
 
 	@RequestMapping(method = RequestMethod.POST, headers = "content-type=application/json")
-	public ResponseEntity<Criteria> save(@RequestBody Criteria criteria)
-			throws PhoneDictionaryException {
+	public ResponseEntity<Criteria> save(@RequestBody Criteria criteria) throws PhoneDictionaryException {
 		try {
 			criteria = iCriteriaService.save(criteria);
 			criteria = iCriteriaService.findOne(criteria.getId());
@@ -44,8 +48,7 @@ public class CriteriaController {
 	}
 
 	@RequestMapping(method = RequestMethod.PUT, headers = "content-type=application/json")
-	public ResponseEntity<Criteria> update(@RequestBody Criteria criteria)
-			throws PhoneDictionaryException {
+	public ResponseEntity<Criteria> update(@RequestBody Criteria criteria) throws PhoneDictionaryException {
 		try {
 			if (criteria.getId() != 0) {
 				criteria = iCriteriaService.update(criteria);
@@ -53,10 +56,8 @@ public class CriteriaController {
 				logger.info("Update block: " + criteria.toString());
 				return new ResponseEntity<Criteria>(criteria, HttpStatus.OK);
 			} else {
-				logger.info("Badrequest for update criteria: "
-						+ criteria.toString());
-				return new ResponseEntity<Criteria>(criteria,
-						HttpStatus.BAD_REQUEST);
+				logger.info("Badrequest for update criteria: " + criteria.toString());
+				return new ResponseEntity<Criteria>(criteria, HttpStatus.BAD_REQUEST);
 			}
 		} catch (PhoneDictionaryException e) {
 			logger.error(e.getMessage(), e);
@@ -65,8 +66,7 @@ public class CriteriaController {
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET, headers = "content-type=application/json")
-	public ResponseEntity<Criteria> get(@PathVariable("id") Long id)
-			throws PhoneDictionaryException {
+	public ResponseEntity<Criteria> get(@PathVariable("id") Long id) throws PhoneDictionaryException {
 		try {
 			Criteria criteria = iCriteriaService.findOne(id);
 			logger.info("Get criteria: " + criteria.toString());
@@ -78,8 +78,7 @@ public class CriteriaController {
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE, headers = "content-type=application/json")
-	public ResponseEntity<Criteria> delete(@PathVariable("id") Long id)
-			throws PhoneDictionaryException {
+	public ResponseEntity<Criteria> delete(@PathVariable("id") Long id) throws PhoneDictionaryException {
 		try {
 			iCriteriaService.deleteById(id);
 			logger.info("Delete criteria by ID: " + id.toString());
@@ -88,6 +87,25 @@ public class CriteriaController {
 			logger.error(e.getMessage(), e);
 			throw new PhoneDictionaryException();
 		}
+	}
+
+	@RequestMapping(value = "/autosuggest/{criteria}/{page}/{limit}", method = RequestMethod.GET, headers = "content-type=application/json")
+	public ResponseEntity<Autosuggest> findAutosuggest(@PathVariable("criteria") String criteria,
+			@PathVariable("page") int page, @PathVariable("limit") int limit) {
+		logger.info("find Autosuggest by params");
+		logger.info(
+				String.format(
+				
+				"Criteria: %s paage: %d limit: %d  ",criteria, page, limit)
+				);
+		
+		Autosuggest res = new Autosuggest();
+		try {
+			res = iAutosuggestService.findByParams(page, limit, criteria);
+		} catch (MyWayException e) {
+			logger.error(e.getMessage(), e);
+		}
+		return new ResponseEntity<Autosuggest>(res, HttpStatus.OK);
 	}
 
 }
