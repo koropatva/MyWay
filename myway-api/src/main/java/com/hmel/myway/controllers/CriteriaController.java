@@ -89,7 +89,7 @@ public class CriteriaController {
 		}
 	}
 
-	@RequestMapping(value = "/autosuggest/{criteria}/{page}/{limit}", method = RequestMethod.GET, headers = "Accept=application/json")
+	@RequestMapping(value = "/autosuggest/{criteria}/{page}/{limit}", method = RequestMethod.GET, headers = "content-type=application/json")
 	public ResponseEntity<Autosuggest> findAutosuggest(@PathVariable("criteria") String criteria,
 			@PathVariable("page") int page, @PathVariable("limit") int limit) {
 		logger.info("find Autosuggest by params");
