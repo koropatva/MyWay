@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.hmel.myway.central.blogic.interfaces.IAutosuggestService;
 import com.hmel.myway.central.blogic.interfaces.ICriteriaService;
 import com.hmel.myway.central.models.Autosuggest;
+import com.hmel.myway.central.models.AutosuggestCriteria;
 import com.hmel.myway.central.models.Criteria;
 import com.hmel.myway.exceptions.MyWayException;
 import com.hmel.myway.exceptions.PhoneDictionaryException;
@@ -89,23 +90,27 @@ public class CriteriaController {
 		}
 	}
 
-	@RequestMapping(value = "/autosuggest/{criteria}/{page}/{limit}", method = RequestMethod.GET, headers = "content-type=application/json")
-	public ResponseEntity<Autosuggest> findAutosuggest(@PathVariable("criteria") String criteria,
-			@PathVariable("page") int page, @PathVariable("limit") int limit) {
+	@RequestMapping(value = "/autosuggest", method = RequestMethod.POST, headers = "content-type=application/json")
+	public ResponseEntity<Autosuggest> findAutosuggest(@RequestBody AutosuggestCriteria autosuggestCriteria) {
 		logger.info("find Autosuggest by params");
-		logger.info(
-				String.format(
-				
-				"Criteria: %s paage: %d limit: %d  ",criteria, page, limit)
-				);
-		
 		Autosuggest res = new Autosuggest();
 		try {
-			res = iAutosuggestService.findByParams(page, limit, criteria);
+			res = iAutosuggestService.findByParams(autosuggestCriteria);
 		} catch (MyWayException e) {
 			logger.error(e.getMessage(), e);
 		}
 		return new ResponseEntity<Autosuggest>(res, HttpStatus.OK);
 	}
+
+	/*
+	 * @RequestMapping(value = "/search/{criteries_ids}", method =
+	 * RequestMethod.GET, headers = "content-type=application/json") public
+	 * ResponseEntity<Autosuggest>
+	 * searchForCriteria(@PathVariable("criteries_ids") List criteria) {
+	 * logger.info("find Autosuggest by params"); Autosuggest res = new
+	 * Autosuggest(); try { res = iAutosuggestService.findByParams(page, limit,
+	 * criteria); } catch (MyWayException e) { logger.error(e.getMessage(), e);
+	 * } return new ResponseEntity<Autosuggest>(res, HttpStatus.OK); }
+	 */
 
 }

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.hmel.myway.central.blogic.interfaces.IAutosuggestService;
 import com.hmel.myway.central.models.Autosuggest;
+import com.hmel.myway.central.models.AutosuggestCriteria;
 import com.hmel.myway.central.models.Criteria;
 import com.hmel.myway.dao.blogic.services.AbstractHibernateDAO;
 import com.hmel.myway.exceptions.MyWayException;
@@ -22,8 +23,14 @@ public class AutosuggestService extends AbstractHibernateDAO<Autosuggest, Long>i
 	private static final Logger logger = LoggerFactory.getLogger(AutosuggestService.class);
 
 	@Override
-	public Autosuggest findByParams(int startPage, int pageLimit, String criteria) throws MyWayException {
+	public Autosuggest findByParams(AutosuggestCriteria autosuggestCriteria) throws MyWayException {
 		logger.info("findByParams");
+		if(autosuggestCriteria==null){
+			throw new NullPointerException("autosuggestCriteria is null");
+		}
+		String criteria = autosuggestCriteria.getCriteria();
+		Integer startPage = autosuggestCriteria.getPage();
+		Integer pageLimit = autosuggestCriteria.getLimit();
 		if (StringUtils.isBlank(criteria)) {
 			throw new MyWayException("criteria is empty");
 		}
