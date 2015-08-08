@@ -69,7 +69,7 @@ public class DestinationController {
 		}
 	}
 	
-	@RequestMapping(method=RequestMethod.GET, headers = "Accept=application/json")
+	@RequestMapping(method=RequestMethod.GET, headers = "content-type=application/json")
 	  public ResponseEntity<List<Destination>> getAll() {
 		logger.info("Get all destination ");
 		List<Destination> res = new ArrayList<>();
@@ -81,7 +81,7 @@ public class DestinationController {
 		return new ResponseEntity<List<Destination>>(res, HttpStatus.OK);
 	  }
 
-	@RequestMapping(value = "/{id}", method = RequestMethod.GET, headers = "Accept=application/json")
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET, headers = "content-type=application/json")
 	public ResponseEntity<Destination> get(@PathVariable("id") Long id)
 			throws PhoneDictionaryException {
 		logger.info("Get destination by ID: " + id);
