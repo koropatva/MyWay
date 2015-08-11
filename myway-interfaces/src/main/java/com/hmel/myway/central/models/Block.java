@@ -95,4 +95,12 @@ public class Block implements Serializable {
 		this.modifiedTime = modifiedTime;
 	}
 
+	@Override
+	public String toString() {
+		return "Block [id=" + id + ", label=" + label + ", shortDescription="
+				+ shortDescription + ", pictureUrl=" + pictureUrl
+				+ ", destination=" + destination + ", creationTime="
+				+ creationTime + ", modifiedTime=" + modifiedTime + "]";
+	}
+
 }

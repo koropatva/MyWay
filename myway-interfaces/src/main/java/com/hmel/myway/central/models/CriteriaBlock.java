@@ -77,4 +77,11 @@ public class CriteriaBlock implements Serializable {
 		this.modifiedTime = modifiedTime;
 	}
 
+	@Override
+	public String toString() {
+		return "CriteriaBlock [id=" + id + ", criteria=" + criteria
+				+ ", block=" + block + ", creationTime=" + creationTime
+				+ ", modifiedTime=" + modifiedTime + "]";
+	}
+
 }
