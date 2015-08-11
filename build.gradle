@@ -6,7 +6,7 @@ buildscript {
 		}
 	}
 	dependencies {
-		classpath 'com.hmel:builder:0.1.1-SNAPSHOT'
+		classpath 'com.hmel:builder:0.1.2-SNAPSHOT'
 	}
 }
 apply plugin: 'builder'
@@ -16,19 +16,19 @@ apply plugin: 'java'
 
 
 schema {
-	sqlComment = "#"
-	sqlSuffix = ".sql"
-	uriSqlFiles = "sql-files/"
+	fileUri = "sql-files/"
+	fileExtensions = ".sql"
+	commentChar = "#"
 }
 datasource {
-	//Fill properties from properties file
+	//Load base sql configurations from the database.properties
 	def props = new Properties()
 	new File("myway/src/main/resources/database.properties").withInputStream {
 		stream -> props.load(stream)
-	}
-
-	user = props["db.username"]
-	password = props["db.password"]
+	}	
+	//Fill schema configs
+	login = props["db.username"]
+	pswd = props["db.password"]
 	url = props["db.url"]
 	driver = props["db.driverClassName"]
 }
