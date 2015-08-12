@@ -5,14 +5,33 @@ buildscript {
 			url uri('libs')
 		}
 	}
-//	dependencies {
-//		classpath 'com.hmel:builder:0.1-SNAPSHOT'
-//	}
+	dependencies {
+		classpath 'com.hmel:builder:0.1.2-SNAPSHOT'
+	}
 }
-//apply plugin: 'builder'
+apply plugin: 'builder'
 
 apply plugin: 'eclipse'
 apply plugin: 'java'
+
+
+schema {
+	fileUri = "sql-files/"
+	fileExtensions = ".sql"
+	commentChar = "#"
+}
+datasource {
+	//Load base sql configurations from the database.properties
+	def props = new Properties()
+	new File("myway/src/main/resources/database.properties").withInputStream {
+		stream -> props.load(stream)
+	}	
+	//Fill schema configs
+	login = props["db.username"]
+	pswd = props["db.password"]
+	url = props["db.url"]
+	driver = props["db.driverClassName"]
+}
 
 
 jar {

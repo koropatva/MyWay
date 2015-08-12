@@ -100,4 +100,13 @@ public class Destination implements Serializable {
 	public void setModifiedTime(Date modifiedTime) {
 		this.modifiedTime = modifiedTime;
 	}
+
+	@Override
+	public String toString() {
+		return "Destination [id=" + id + ", label=" + label + ", description="
+				+ description + ", pictureUrl=" + pictureUrl + ", locationX="
+				+ locationX + ", locationY=" + locationY + ", creationTime="
+				+ creationTime + ", modifiedTime=" + modifiedTime + "]";
+	}
+
 }
