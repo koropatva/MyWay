@@ -1,7 +1,6 @@
 apply plugin: 'eclipse'
 apply plugin: 'java'
 apply plugin: 'maven'
-apply plugin: 'spring-boot'
 
 group = 'com.hmel'
 version = '0.0.1'
@@ -39,16 +38,6 @@ dependencies {
 	testCompile "org.springframework:spring-test:2.5"
 	testCompile "org.assertj:assertj-core:2.0.0"
 	
-	compile ("org.springframework.boot:spring-boot-starter-web"){
-		exclude module:"spring-boot-starter-tomcat"
-		exclude module: "spring-boot-starter-logging"
-    	exclude module: "logback-classic"
-	}
-	compile "org.springframework.boot:spring-boot-starter-jetty"
-	compile ("org.springframework.boot:spring-boot-starter-actuator"){
-	  exclude module: "logback-classic"
-	}
-	
 	compile "org.springframework.boot:spring-boot-gradle-plugin:1.2.3.RELEASE"
 
 	
@@ -59,5 +48,3 @@ dependencies {
 task wrapper(type:Wrapper){
 	gradleVersion='2.4'
 }
-
-

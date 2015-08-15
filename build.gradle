@@ -1,38 +1,6 @@
-buildscript {
-	repositories {
-		mavenLocal()
-		maven {
-			url uri('libs')
-		}
-	}
-	dependencies {
-		classpath 'com.hmel:builder:0.1.2-SNAPSHOT'
-	}
-}
-apply plugin: 'builder'
-
 apply plugin: 'eclipse'
 apply plugin: 'java'
-
-
-schema {
-	fileUri = "sql-files/"
-	fileExtensions = ".sql"
-	commentChar = "#"
-}
-datasource {
-	//Load base sql configurations from the database.properties
-	def props = new Properties()
-	new File("myway/src/main/resources/database.properties").withInputStream {
-		stream -> props.load(stream)
-	}	
-	//Fill schema configs
-	login = props["db.username"]
-	pswd = props["db.password"]
-	url = props["db.url"]
-	driver = props["db.driverClassName"]
-}
-
+apply plugin: 'cobertura'
 
 jar {
         baseName = 'myway'
@@ -45,6 +13,24 @@ repositories {
 configurations{
 	driver
 }
+buildscript {
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath 'net.saliman:gradle-cobertura-plugin:2.2.8'
+		classpath 'org.codehaus.groovy:groovy-backports-compat23:2.3.5'
+	}
+}
+
+cobertura {
+	coverageFormats = ['html']
+	coverageIgnoreTrivial = true
+	coverageIgnores = ['org.slf4j.Logger.*']
+	coverageReportDir = new File("$buildDir/reports/cobertura")
+}
+
+//	test.finalizedBy project.tasks.cobertura 
 dependencies {
 	driver "mysql:mysql-connector-java:5.1.18"
 	compile "org.springframework:spring-web:4.0.3.RELEASE"
