@@ -1,6 +1,5 @@
 apply plugin: 'eclipse'
 apply plugin: 'java'
-apply plugin: 'cobertura'
 
 jar {
         baseName = 'myway'
@@ -18,19 +17,15 @@ buildscript {
 		mavenCentral()
 	}
 	dependencies {
-		classpath 'net.saliman:gradle-cobertura-plugin:2.2.8'
 		classpath 'org.codehaus.groovy:groovy-backports-compat23:2.3.5'
 	}
 }
 
-cobertura {
-	coverageFormats = ['html']
-	coverageIgnoreTrivial = true
-	coverageIgnores = ['org.slf4j.Logger.*']
-	coverageReportDir = new File("$buildDir/reports/cobertura")
+subprojects {
+	apply from: "${parent.projectDir.canonicalPath}/cobertura.gradle"
+	test.finalizedBy project.tasks.cobertura
 }
 
-//	test.finalizedBy project.tasks.cobertura 
 dependencies {
 	driver "mysql:mysql-connector-java:5.1.18"
 	compile "org.springframework:spring-web:4.0.3.RELEASE"
