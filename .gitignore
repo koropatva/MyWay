@@ -27,6 +27,7 @@ myway-interfaces/build/*
 
 # Package Files #
 *.jar
+!libs/**/*.jar
 *.war
 *.ear
 
