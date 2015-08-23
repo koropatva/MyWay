@@ -22,7 +22,7 @@ import com.hmel.myway.central.models.CriteriaSearchHolder;
 import com.hmel.myway.exceptions.MyWayException;
 
 /**
- * @author Alebder Burkovskiy
+ * @author Alexander Burkovskiy
  *
  */
 

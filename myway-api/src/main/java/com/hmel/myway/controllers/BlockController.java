@@ -1,8 +1,5 @@
 package com.hmel.myway.controllers;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.hmel.myway.central.blogic.interfaces.IBlockService;
-import com.hmel.myway.central.conditioholder.BlockConditionHolder;
 import com.hmel.myway.central.models.Block;
 import com.hmel.myway.exceptions.PhoneDictionaryException;
 
@@ -91,19 +87,4 @@ public class BlockController {
 			throw new PhoneDictionaryException();
 		}
 	}
-	
-	@RequestMapping(value = "/searchlst", method = RequestMethod.POST, headers = "content-type=application/json")
-	public ResponseEntity<List<Block>> search(@RequestBody BlockConditionHolder holder) throws PhoneDictionaryException {
-		logger.info("search");
-		List<Block> res = new ArrayList<>();
-		try{
-			res = iBlockService.findByConditionHolder(holder);
-			return new ResponseEntity<List<Block>>(res, HttpStatus.OK);
-		}catch(PhoneDictionaryException e){
-			logger.error(e.getMessage(), e);
-			throw new PhoneDictionaryException();
-		}
-		
-	}
-
 }
