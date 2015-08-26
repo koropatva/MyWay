@@ -14,11 +14,11 @@ import com.hmel.myway.central.blogic.interfaces.IBlockSearchResponeService;
 import com.hmel.myway.central.models.BlockSearchRespone;
 import com.hmel.myway.central.models.CriteriaBlock;
 import com.hmel.myway.central.models.CriteriaSearchHolder;
-import com.hmel.myway.dao.blogic.services.AbstractHibernateDAO;
+import com.hmel.myway.dao.blogic.services.BaseHibernateDAO;
 import com.hmel.myway.exceptions.MyWayException;
 
 @Service
-public class BlockSearchResponeService extends AbstractHibernateDAO<BlockSearchRespone, Long>
+public class BlockSearchResponeService extends BaseHibernateDAO<BlockSearchRespone, Long>
 		implements IBlockSearchResponeService {
 
 	private static final Logger logger = LoggerFactory.getLogger(BlockSearchResponeService.class);
