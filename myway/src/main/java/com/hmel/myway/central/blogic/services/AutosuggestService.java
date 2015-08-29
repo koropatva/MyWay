@@ -14,11 +14,11 @@ import com.hmel.myway.central.blogic.interfaces.IAutosuggestService;
 import com.hmel.myway.central.models.Autosuggest;
 import com.hmel.myway.central.models.AutosuggestCriteria;
 import com.hmel.myway.central.models.Criteria;
-import com.hmel.myway.dao.blogic.services.AbstractHibernateDAO;
+import com.hmel.myway.dao.blogic.services.BaseHibernateDAO;
 import com.hmel.myway.exceptions.MyWayException;
 
 @Service
-public class AutosuggestService extends AbstractHibernateDAO<Autosuggest, Long>implements IAutosuggestService {
+public class AutosuggestService extends BaseHibernateDAO<Autosuggest, Long>implements IAutosuggestService {
 
 	private static final Logger logger = LoggerFactory.getLogger(AutosuggestService.class);
 

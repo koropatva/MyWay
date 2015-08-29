@@ -42,5 +42,5 @@ public interface IHibernateDAO<T extends Serializable, P extends Serializable> {
    */
   public List<T> findByCriteria(DetachedCriteria criteria, int firstResult, int maxResults)
       throws PhoneDictionaryException;
-
+  
 }

@@ -9,11 +9,11 @@ import org.springframework.stereotype.Service;
 
 import com.hmel.myway.central.blogic.interfaces.ICriteriaBlockService;
 import com.hmel.myway.central.models.CriteriaBlock;
-import com.hmel.myway.dao.blogic.services.AbstractHibernateDAO;
+import com.hmel.myway.dao.blogic.services.BaseHibernateDAO;
 
 @Service
 public class CriteriaBlockService extends
-		AbstractHibernateDAO<CriteriaBlock, Long> implements
+		BaseHibernateDAO<CriteriaBlock, Long> implements
 		ICriteriaBlockService {
 
 	@Autowired
