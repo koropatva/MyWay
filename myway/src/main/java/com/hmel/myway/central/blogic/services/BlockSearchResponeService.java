@@ -18,14 +18,17 @@ import com.hmel.myway.dao.blogic.services.BaseHibernateDAO;
 import com.hmel.myway.exceptions.MyWayException;
 
 @Service
-public class BlockSearchResponeService extends BaseHibernateDAO<BlockSearchRespone, Long>
-		implements IBlockSearchResponeService {
+public class BlockSearchResponeService extends
+		BaseHibernateDAO<BlockSearchRespone, Long> implements
+		IBlockSearchResponeService {
 
-	private static final Logger logger = LoggerFactory.getLogger(BlockSearchResponeService.class);
+	private static final Logger logger = LoggerFactory
+			.getLogger(BlockSearchResponeService.class);
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<BlockSearchRespone> findByCriteriaHolder(CriteriaSearchHolder holder) throws MyWayException {
+	public List<BlockSearchRespone> findByCriteriaHolder(
+			CriteriaSearchHolder holder) throws MyWayException {
 		logger.info("findByCriteriaHolder");
 		if (holder == null) {
 			throw new NullPointerException("holder is null");
@@ -34,17 +37,23 @@ public class BlockSearchResponeService extends BaseHibernateDAO<BlockSearchRespo
 		if (!holder.getCriteries_ids().isEmpty()) {
 			try {
 				getCurrentSession().beginTransaction();
-					
-				DetachedCriteria criteria = DetachedCriteria.forClass(CriteriaBlock.class);
-				criteria.add(Restrictions.in("criteria.id", holder.getCriteries_ids()));
+
+				DetachedCriteria criteria = DetachedCriteria
+						.forClass(CriteriaBlock.class);
+				criteria.add(Restrictions.in("criteria.id",
+						holder.getCriteries_ids()));
 				criteria.setProjection(Projections.property("block.id"));
-				List<Long> lstId = criteria.getExecutableCriteria(getCurrentSession()).setFirstResult(0)
-						.setMaxResults(Integer.MAX_VALUE).list();
+				List<Long> lstId = criteria
+						.getExecutableCriteria(getCurrentSession())
+						.setFirstResult(0).setMaxResults(Integer.MAX_VALUE)
+						.list();
 				if (lstId != null && !lstId.isEmpty()) {
-					criteria = DetachedCriteria.forClass(BlockSearchRespone.class);
+					criteria = DetachedCriteria
+							.forClass(BlockSearchRespone.class);
 					criteria.add(Restrictions.in("id", lstId));
-					res = criteria.getExecutableCriteria(getCurrentSession()).setFirstResult(0)
-							.setMaxResults(Integer.MAX_VALUE).list();
+					res = criteria.getExecutableCriteria(getCurrentSession())
+							.setFirstResult(0).setMaxResults(Integer.MAX_VALUE)
+							.list();
 				}
 			} finally {
 				getCurrentSession().close();

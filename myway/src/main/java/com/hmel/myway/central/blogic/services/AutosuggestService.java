@@ -18,14 +18,17 @@ import com.hmel.myway.dao.blogic.services.BaseHibernateDAO;
 import com.hmel.myway.exceptions.MyWayException;
 
 @Service
-public class AutosuggestService extends BaseHibernateDAO<Autosuggest, Long>implements IAutosuggestService {
+public class AutosuggestService extends BaseHibernateDAO<Autosuggest, Long>
+		implements IAutosuggestService {
 
-	private static final Logger logger = LoggerFactory.getLogger(AutosuggestService.class);
+	private static final Logger logger = LoggerFactory
+			.getLogger(AutosuggestService.class);
 
 	@Override
-	public Autosuggest findByParams(AutosuggestCriteria autosuggestCriteria) throws MyWayException {
+	public Autosuggest findByParams(AutosuggestCriteria autosuggestCriteria)
+			throws MyWayException {
 		logger.info("findByParams");
-		if(autosuggestCriteria==null){
+		if (autosuggestCriteria == null) {
 			throw new NullPointerException("autosuggestCriteria is null");
 		}
 		String criteria = autosuggestCriteria.getCriteria();
@@ -42,19 +45,22 @@ public class AutosuggestService extends BaseHibernateDAO<Autosuggest, Long>imple
 		}
 		int firstRecordForSearch = (startPage - 1) * pageLimit;
 		getCurrentSession().beginTransaction();
-		Autosuggest autosuggest =null;
-		try{
-		DetachedCriteria cr = DetachedCriteria.forClass(Criteria.class);
-		cr.add(Restrictions.like("name", criteria, MatchMode.START));
+		Autosuggest autosuggest = null;
+		try {
+			DetachedCriteria cr = DetachedCriteria.forClass(Criteria.class);
+			cr.add(Restrictions.like("name", criteria, MatchMode.START));
 
-		@SuppressWarnings("unchecked")
-		List<Criteria> lstCriteria = cr.getExecutableCriteria(getCurrentSession()).setFirstResult(firstRecordForSearch)
-				.setMaxResults(pageLimit).list();
-		autosuggest = new Autosuggest(startPage, lstCriteria.size(), lstCriteria);
-		}finally{
-			 getCurrentSession().close();
+			@SuppressWarnings("unchecked")
+			List<Criteria> lstCriteria = cr
+					.getExecutableCriteria(getCurrentSession())
+					.setFirstResult(firstRecordForSearch)
+					.setMaxResults(pageLimit).list();
+			autosuggest = new Autosuggest(startPage, lstCriteria.size(),
+					lstCriteria);
+		} finally {
+			getCurrentSession().close();
 		}
-		
+
 		return autosuggest;
 	}
 

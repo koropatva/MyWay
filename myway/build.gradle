@@ -1,5 +1,4 @@
 apply plugin: 'eclipse'
-apply plugin: 'java'
 apply plugin: 'maven'
 
 group = 'com.hmel'
@@ -36,7 +35,8 @@ dependencies {
 	compile "org.slf4j:slf4j-log4j12:1.7.12"
 
 	testCompile "junit:junit:4.4"		
-	
+	compile "org.assertj:assertj-core:3.1.0"	
+
 	compile project (":myway-interfaces")
 }
 task wrapper(type:Wrapper){

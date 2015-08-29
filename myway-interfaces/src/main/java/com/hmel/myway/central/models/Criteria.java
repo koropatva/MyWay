@@ -18,6 +18,9 @@ import com.hmel.myway.central.enums.CriteriaType;
 @Table(name = "criteria")
 public class Criteria implements Serializable {
 
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
 
 	@Id

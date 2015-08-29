@@ -1,12 +1,8 @@
 apply plugin: 'java'
 logger.info "Configuring Cobertura Plugin"
 
-configurations{
-  coberturaRuntime {extendsFrom testRuntime}
-}
-
 dependencies {
-  coberturaRuntime 'net.sourceforge.cobertura:cobertura:1.9.4'
+  	testRuntime 'net.sourceforge.cobertura:cobertura:2.1.1'
 }
 
 def serFile="${project.buildDir}/reports/cobertura/cobertura.ser"
@@ -15,7 +11,7 @@ def classesCopy="${classes}-copy"
 
 task cobertura(type: Test){
   dependencies {
-    testRuntime 'net.sourceforge.cobertura:cobertura:1.9.4'
+    testRuntime 'net.sourceforge.cobertura:cobertura:2.1.1'
   }
 
   systemProperty "net.sourceforge.cobertura.datafile", serFile
@@ -30,7 +26,7 @@ cobertura.doFirst  {
     delete(dir: classesCopy, failonerror:false)
     copy(todir: classesCopy) { fileset(dir: classes) }
 
-    taskdef(resource:'tasks.properties', classpath: configurations.coberturaRuntime.asPath)
+    taskdef(resource:'tasks.properties', classpath: configurations.testRuntime.asPath)
     'cobertura-instrument'(datafile: serFile) {
       fileset(dir: classes,
               includes:"**/*.class",
