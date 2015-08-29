@@ -18,8 +18,8 @@ import com.hmel.myway.exceptions.PhoneDictionaryException;
 /**
  * @author Burkovskiy Alexander
  */
-@Transactional(value = "transactionManager")
-public abstract class BaseHibernateDAO<T extends Serializable, P extends Serializable> implements IHibernateDAO<T, P> {
+public abstract class BaseHibernateDAO<T extends Serializable, P extends Serializable>
+		implements IHibernateDAO<T, P> {
 
 	protected Class<T> clazz;
 
@@ -29,7 +29,8 @@ public abstract class BaseHibernateDAO<T extends Serializable, P extends Seriali
 
 	@SuppressWarnings("unchecked")
 	public BaseHibernateDAO() {
-		this.clazz = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+		this.clazz = (Class<T>) ((ParameterizedType) getClass()
+				.getGenericSuperclass()).getActualTypeArguments()[0];
 	}
 
 	@SuppressWarnings("unchecked")
@@ -44,10 +45,12 @@ public abstract class BaseHibernateDAO<T extends Serializable, P extends Seriali
 	}
 
 	@SuppressWarnings("unchecked")
+	@Transactional(value = "transactionManager")
 	public List<T> findAll() throws PhoneDictionaryException {
 		getCurrentSession().beginTransaction();
 		try {
-			return getCurrentSession().createQuery("from " + clazz.getName()).list();
+			return getCurrentSession().createQuery("from " + clazz.getName())
+					.list();
 		} finally {
 			getCurrentSession().close();
 		}
@@ -112,7 +115,8 @@ public abstract class BaseHibernateDAO<T extends Serializable, P extends Seriali
 	 * @param criteria
 	 * @return all records
 	 */
-	public List<T> findByCriteria(DetachedCriteria criteria) throws PhoneDictionaryException {
+	public List<T> findByCriteria(DetachedCriteria criteria)
+			throws PhoneDictionaryException {
 		return findByCriteria(criteria, 0, Integer.MAX_VALUE);
 	}
 
@@ -123,8 +127,8 @@ public abstract class BaseHibernateDAO<T extends Serializable, P extends Seriali
 	 *         if not present necessary amout in db)
 	 */
 	@SuppressWarnings("unchecked")
-	public List<T> findByCriteria(DetachedCriteria criteria, int firstResult, int maxResults)
-			throws PhoneDictionaryException {
+	public List<T> findByCriteria(DetachedCriteria criteria, int firstResult,
+			int maxResults) throws PhoneDictionaryException {
 		if (criteria == null) {
 			throw new IllegalArgumentException("criteria can't be null");
 		}
@@ -135,8 +139,9 @@ public abstract class BaseHibernateDAO<T extends Serializable, P extends Seriali
 		if (maxResults < 0) {
 			throw new IllegalArgumentException("maxResults can't be < 0");
 		}
-		List<T> res = (List<T>) criteria.getExecutableCriteria(getCurrentSession()).setFirstResult(firstResult)
-				.setMaxResults(maxResults).list();
+		List<T> res = (List<T>) criteria
+				.getExecutableCriteria(getCurrentSession())
+				.setFirstResult(firstResult).setMaxResults(maxResults).list();
 		return res;
 	}
 

@@ -9,6 +9,7 @@ jar {
 repositories {
     	mavenCentral()
 }
+
 configurations{
 	driver
 }
@@ -21,6 +22,12 @@ buildscript {
 	}
 }
 
+
+allprojects {
+	apply plugin: 'java'
+	sourceCompatibility = 1.8
+	targetCompatibility = 1.8
+}
 subprojects {
 	apply from: "${parent.projectDir.canonicalPath}/cobertura.gradle"
 	test.finalizedBy project.tasks.cobertura

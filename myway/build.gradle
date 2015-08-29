@@ -1,5 +1,4 @@
 apply plugin: 'eclipse'
-apply plugin: 'java'
 apply plugin: 'maven'
 
 group = 'com.hmel'
@@ -23,28 +22,24 @@ repositories {
 }
 
 dependencies {
-	compile "org.springframework:spring-web:4.1.6.RELEASE"
 	compile "org.springframework:spring-orm:4.1.6.RELEASE"
-	compile "org.hibernate:hibernate-core:4.3.10.Final"
+	compile "org.springframework:spring-context:4.1.6.RELEASE"
+	compile "org.springframework:spring-tx:4.1.6.RELEASE"	
 	compile "org.springframework:spring-aspects:4.1.6.RELEASE"
+	compile "org.springframework:spring-test:2.5"
+
+	compile "org.hibernate:hibernate-core:4.3.10.Final"
+	compile "org.apache.commons:commons-lang3:3.0"
 	compile "commons-dbcp:commons-dbcp:1.4"
 	compile "mysql:mysql-connector-java:5.1.16"
-	compile "org.slf4j:slf4j-api:1.7.12"
-	compile "org.apache.logging.log4j:log4j-slf4j-impl:2.0"
-	compile "org.apache.logging.log4j:log4j-api:2.3"
-	compile "org.apache.logging.log4j:log4j-core:2.3"
+	compile "org.slf4j:slf4j-log4j12:1.7.12"
 
 	testCompile "junit:junit:4.4"		
-	testCompile "org.springframework:spring-test:2.5"
-	testCompile "org.assertj:assertj-core:2.0.0"
-	
-	compile "org.springframework.boot:spring-boot-gradle-plugin:1.2.3.RELEASE"
+	compile "org.assertj:assertj-core:3.1.0"	
 
-	
 	compile project (":myway-interfaces")
-	
-	compile "org.apache.commons:commons-lang3:3.0"
 }
 task wrapper(type:Wrapper){
 	gradleVersion='2.4'
 }
+

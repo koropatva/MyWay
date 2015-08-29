@@ -7,8 +7,10 @@ import com.hmel.myway.central.models.CriteriaSearchHolder;
 import com.hmel.myway.dao.blogic.interfaces.IHibernateDAO;
 import com.hmel.myway.exceptions.MyWayException;
 
-public interface IBlockSearchResponeService extends IHibernateDAO<BlockSearchRespone, Long> {
+public interface IBlockSearchResponeService extends
+		IHibernateDAO<BlockSearchRespone, Long> {
 
-	public List<BlockSearchRespone> findByCriteriaHolder(CriteriaSearchHolder holder) throws MyWayException;
+	public List<BlockSearchRespone> findByCriteriaHolder(
+			CriteriaSearchHolder holder) throws MyWayException;
 
 }

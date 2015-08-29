@@ -7,6 +7,7 @@ import com.hmel.myway.exceptions.MyWayException;
 
 public interface IAutosuggestService extends IHibernateDAO<Autosuggest, Long> {
 
-	Autosuggest findByParams(AutosuggestCriteria autosuggestCriteria) throws MyWayException;
+	Autosuggest findByParams(AutosuggestCriteria autosuggestCriteria)
+			throws MyWayException;
 
 }
