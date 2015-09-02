@@ -1,5 +1,8 @@
 apply plugin: 'eclipse'
 apply plugin: 'java'
+apply from: "version.gradle"
+
+
 
 jar {
         baseName = 'myway'
@@ -30,12 +33,13 @@ allprojects {
 }
 subprojects {
 	apply from: "${parent.projectDir.canonicalPath}/cobertura.gradle"
+	apply from: "${parent.projectDir.canonicalPath}/version.gradle"
 	test.finalizedBy project.tasks.cobertura
 }
 
 dependencies {
-	driver "mysql:mysql-connector-java:5.1.18"
-	compile "org.springframework:spring-web:4.0.3.RELEASE"
+	driver "mysql:mysql-connector-java:${mysql.connectorJava}"
+	compile "org.springframework:spring-web:${springframework.web}"
 }
 URLClassLoader loader = GroovyObject.class.classLoader
 configurations.driver.each {File file ->

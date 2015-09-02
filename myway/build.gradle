@@ -22,7 +22,7 @@ repositories {
 }
 
 dependencies {
-	compile "org.springframework:spring-orm:4.1.6.RELEASE"
+	compile "org.springframework:spring-orm:${springframework.orm}"
 	compile "org.springframework:spring-context:4.1.6.RELEASE"
 	compile "org.springframework:spring-tx:4.1.6.RELEASE"	
 	compile "org.springframework:spring-aspects:4.1.6.RELEASE"
