@@ -15,10 +15,10 @@ repositories {
 }
 
 dependencies {
-	compile "org.hibernate:hibernate-core:4.3.10.Final"
-	compile "log4j:log4j:1.2.17"
-	compile "mysql:mysql-connector-java:5.1.16"
-	compile "junit:junit:4.4"
+	compile "org.hibernate:hibernate-core:${hibernate.core}"
+	compile "log4j:log4j:${log4j.log4j}"
+	compile "mysql:mysql-connector-java:${mysql.connectorJava}"
+	compile "junit:junit:${junit.junit}"
 }
 
 

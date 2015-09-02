@@ -1,0 +1,50 @@
+class Springframework {
+	String orm = '4.1.6.RELEASE'
+	String web = '4.1.6.RELEASE'
+	String aspects = '4.1.6.RELEASE'
+	String test = '2.5'
+	String bookGradlePlugin = '1.2.3.RELEASE'
+	String context = '4.1.6.RELEASE'
+	String tx = '4.1.6.RELEASE'
+}
+
+class MySql {
+	String connectorJava = '5.1.18'
+}
+
+class Hibernate {
+	String core = '4.3.10.Final'
+}
+
+class Log4j {
+	String log4j = '1.2.17'
+}
+
+class JUnit {
+	String junit = '4.4'
+}
+
+class Commons {
+	String dbcp = '1.4'
+	String lang3 = '3.0'
+}
+
+class Slf4j {
+	String api = '1.7.12'
+	String log4j12 = '1.7.12'
+}
+
+class AssertJ {
+	String core = '3.1.0'
+}
+
+project.extensions.create('springframework', Springframework)
+project.extensions.create('mysql', MySql)
+project.extensions.create('hibernate', Hibernate)
+project.extensions.create('log4j', Log4j)
+project.extensions.create('junit', JUnit)
+project.extensions.create('commons', Commons)
+project.extensions.create('slf4j', Slf4j)
+project.extensions.create('assertj', AssertJ)
+
+
