@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.criterion.DetachedCriteria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -33,7 +34,6 @@ public abstract class BaseHibernateDAO<T extends Serializable, P extends Seriali
 				.getGenericSuperclass()).getActualTypeArguments()[0];
 	}
 
-	@SuppressWarnings("unchecked")
 	public T findOne(P id) throws PhoneDictionaryException {
 		getCurrentSession().beginTransaction();
 		try {
@@ -139,9 +139,11 @@ public abstract class BaseHibernateDAO<T extends Serializable, P extends Seriali
 		if (maxResults < 0) {
 			throw new IllegalArgumentException("maxResults can't be < 0");
 		}
+		Transaction tx = getCurrentSession().beginTransaction();
 		List<T> res = (List<T>) criteria
 				.getExecutableCriteria(getCurrentSession())
 				.setFirstResult(firstResult).setMaxResults(maxResults).list();
+		tx.commit();
 		return res;
 	}
 
