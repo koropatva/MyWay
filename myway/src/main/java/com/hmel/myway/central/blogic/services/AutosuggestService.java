@@ -6,8 +6,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.hmel.myway.central.blogic.interfaces.IAutosuggestService;
@@ -20,9 +18,6 @@ import com.hmel.myway.exceptions.MyWayException;
 @Service
 public class AutosuggestService extends BaseHibernateDAO<Autosuggest, Long>
 		implements IAutosuggestService {
-
-	private static final Logger logger = LoggerFactory
-			.getLogger(AutosuggestService.class);
 
 	@Override
 	public Autosuggest findByParams(AutosuggestCriteria autosuggestCriteria)
