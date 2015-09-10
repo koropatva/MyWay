@@ -8,11 +8,14 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.DetachedCriteria;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.hmel.myway.central.blogic.services.BlockService;
 import com.hmel.myway.dao.blogic.interfaces.IHibernateDAO;
 import com.hmel.myway.exceptions.PhoneDictionaryException;
 
@@ -21,6 +24,9 @@ import com.hmel.myway.exceptions.PhoneDictionaryException;
  */
 public abstract class BaseHibernateDAO<T extends Serializable, P extends Serializable>
 		implements IHibernateDAO<T, P> {
+
+	protected static final Logger logger = LoggerFactory
+			.getLogger(BlockService.class);
 
 	protected Class<T> clazz;
 
@@ -35,6 +41,7 @@ public abstract class BaseHibernateDAO<T extends Serializable, P extends Seriali
 	}
 
 	public T findOne(P id) throws PhoneDictionaryException {
+		logger.info("findOne CALLING");
 		getCurrentSession().beginTransaction();
 		try {
 			return (T) getCurrentSession().get(clazz, id);
@@ -47,6 +54,7 @@ public abstract class BaseHibernateDAO<T extends Serializable, P extends Seriali
 	@SuppressWarnings("unchecked")
 	@Transactional(value = "transactionManager")
 	public List<T> findAll() throws PhoneDictionaryException {
+		logger.info("findAll CALLING");
 		getCurrentSession().beginTransaction();
 		try {
 			return getCurrentSession().createQuery("from " + clazz.getName())
@@ -57,6 +65,7 @@ public abstract class BaseHibernateDAO<T extends Serializable, P extends Seriali
 	}
 
 	public T create(T entity) throws PhoneDictionaryException {
+		logger.info("create CALLING");
 		getCurrentSession().beginTransaction();
 		try {
 			getCurrentSession().persist(entity);
@@ -70,6 +79,7 @@ public abstract class BaseHibernateDAO<T extends Serializable, P extends Seriali
 	}
 
 	public T update(T entity) throws PhoneDictionaryException {
+		logger.info("update CALLING");
 		getCurrentSession().beginTransaction();
 		try {
 			getCurrentSession().merge(entity);
@@ -84,6 +94,7 @@ public abstract class BaseHibernateDAO<T extends Serializable, P extends Seriali
 
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	public T save(T entity) throws PhoneDictionaryException {
+		logger.info("save CALLING");
 		getCurrentSession().beginTransaction();
 		try {
 			getCurrentSession().saveOrUpdate(entity);
@@ -95,6 +106,7 @@ public abstract class BaseHibernateDAO<T extends Serializable, P extends Seriali
 	}
 
 	public void delete(T entity) throws PhoneDictionaryException {
+		logger.info("delete CALLING");
 		getCurrentSession().beginTransaction();
 		try {
 			getCurrentSession().delete(entity);
@@ -105,6 +117,7 @@ public abstract class BaseHibernateDAO<T extends Serializable, P extends Seriali
 	}
 
 	public void deleteById(P entityId) throws PhoneDictionaryException {
+		logger.info("deleteById CALLING");
 		T entity = findOne(entityId);
 		delete(entity);
 
@@ -117,6 +130,7 @@ public abstract class BaseHibernateDAO<T extends Serializable, P extends Seriali
 	 */
 	public List<T> findByCriteria(DetachedCriteria criteria)
 			throws PhoneDictionaryException {
+		logger.info("findByCriteria CALLING");
 		return findByCriteria(criteria, 0, Integer.MAX_VALUE);
 	}
 
@@ -129,6 +143,7 @@ public abstract class BaseHibernateDAO<T extends Serializable, P extends Seriali
 	@SuppressWarnings("unchecked")
 	public List<T> findByCriteria(DetachedCriteria criteria, int firstResult,
 			int maxResults) throws PhoneDictionaryException {
+		logger.info("findByCriteria CALLING");
 		if (criteria == null) {
 			throw new IllegalArgumentException("criteria can't be null");
 		}
@@ -149,13 +164,5 @@ public abstract class BaseHibernateDAO<T extends Serializable, P extends Seriali
 
 	protected final Session getCurrentSession() {
 		return sessionFactory.getCurrentSession();
-	}
-
-	public SessionFactory getSessionFactory() {
-		return sessionFactory;
-	}
-
-	public void setSessionFactory(SessionFactory sessionFactory) {
-		this.sessionFactory = sessionFactory;
 	}
 }
