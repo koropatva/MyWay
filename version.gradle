@@ -1,11 +1,11 @@
 class Springframework {
-	String orm = '4.1.6.RELEASE'
-	String web = '4.1.6.RELEASE'
-	String aspects = '4.1.6.RELEASE'
-	String test = '2.5'
+	String orm = '4.2.1.RELEASE'
+	String web = '4.2.1.RELEASE'
+	String aspects = '4.2.1.RELEASE'
+	String test = '4.2.1.RELEASE'
 	String bookGradlePlugin = '1.2.3.RELEASE'
-	String context = '4.1.6.RELEASE'
-	String tx = '4.1.6.RELEASE'
+	String context = '4.2.1.RELEASE'
+	String tx = '4.2.1.RELEASE'
 }
 
 class MySql {
@@ -13,7 +13,7 @@ class MySql {
 }
 
 class Hibernate {
-	String core = '4.3.10.Final'
+	String core = '5.0.0.Final'
 }
 
 class Log4j {
@@ -21,7 +21,7 @@ class Log4j {
 }
 
 class JUnit {
-	String junit = '4.4'
+	String junit = '4.5'
 }
 
 class Commons {
