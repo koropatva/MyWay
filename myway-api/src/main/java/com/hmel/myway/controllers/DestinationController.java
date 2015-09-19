@@ -74,7 +74,7 @@ public class DestinationController {
 		logger.info("Get all destination ");
 		List<Destination> res = new ArrayList<>();
 		try {
-			res = iDestinationService.findAll();
+			res = iDestinationService.findAll(0,Integer.MAX_VALUE);
 		} catch (PhoneDictionaryException e) {
 			logger.error(e.getMessage(), e);
 		}

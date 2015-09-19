@@ -22,11 +22,9 @@ import com.hmel.myway.exceptions.PhoneDictionaryException;
 /**
  * @author Burkovskiy Alexander
  */
-public abstract class BaseHibernateDAO<T extends Serializable, P extends Serializable>
-		implements IHibernateDAO<T, P> {
+public abstract class BaseHibernateDAO<T extends Serializable, P extends Serializable> implements IHibernateDAO<T, P> {
 
-	protected static final Logger logger = LoggerFactory
-			.getLogger(BlockService.class);
+	protected static final Logger logger = LoggerFactory.getLogger(BlockService.class);
 
 	protected Class<T> clazz;
 
@@ -36,8 +34,7 @@ public abstract class BaseHibernateDAO<T extends Serializable, P extends Seriali
 
 	@SuppressWarnings("unchecked")
 	public BaseHibernateDAO() {
-		this.clazz = (Class<T>) ((ParameterizedType) getClass()
-				.getGenericSuperclass()).getActualTypeArguments()[0];
+		this.clazz = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
 	}
 
 	public T findOne(P id) throws PhoneDictionaryException {
@@ -53,12 +50,18 @@ public abstract class BaseHibernateDAO<T extends Serializable, P extends Seriali
 
 	@SuppressWarnings("unchecked")
 	@Transactional(value = "transactionManager")
-	public List<T> findAll() throws PhoneDictionaryException {
+	public List<T> findAll(int firstResult, int maxResults) throws PhoneDictionaryException, IllegalArgumentException{
 		logger.info("findAll CALLING");
 		getCurrentSession().beginTransaction();
+		if(firstResult<0){
+			throw new IllegalArgumentException("first result must be >=0");
+		}
+		if(maxResults<=0 || maxResults<firstResult){
+			throw new IllegalArgumentException("max Results must be >=0 and < first Result");
+		}
 		try {
-			return getCurrentSession().createQuery("from " + clazz.getName())
-					.list();
+			return getCurrentSession().createQuery("from " + clazz.getName()).setFirstResult(firstResult)
+					.setMaxResults(maxResults).list();
 		} finally {
 			getCurrentSession().close();
 		}
@@ -128,8 +131,7 @@ public abstract class BaseHibernateDAO<T extends Serializable, P extends Seriali
 	 * @param criteria
 	 * @return all records
 	 */
-	public List<T> findByCriteria(DetachedCriteria criteria)
-			throws PhoneDictionaryException {
+	public List<T> findByCriteria(DetachedCriteria criteria) throws PhoneDictionaryException {
 		logger.info("findByCriteria CALLING");
 		return findByCriteria(criteria, 0, Integer.MAX_VALUE);
 	}
@@ -141,8 +143,8 @@ public abstract class BaseHibernateDAO<T extends Serializable, P extends Seriali
 	 *         if not present necessary amout in db)
 	 */
 	@SuppressWarnings("unchecked")
-	public List<T> findByCriteria(DetachedCriteria criteria, int firstResult,
-			int maxResults) throws PhoneDictionaryException {
+	public List<T> findByCriteria(DetachedCriteria criteria, int firstResult, int maxResults)
+			throws PhoneDictionaryException {
 		logger.info("findByCriteria CALLING");
 		if (criteria == null) {
 			throw new IllegalArgumentException("criteria can't be null");
@@ -155,9 +157,8 @@ public abstract class BaseHibernateDAO<T extends Serializable, P extends Seriali
 			throw new IllegalArgumentException("maxResults can't be < 0");
 		}
 		Transaction tx = getCurrentSession().beginTransaction();
-		List<T> res = (List<T>) criteria
-				.getExecutableCriteria(getCurrentSession())
-				.setFirstResult(firstResult).setMaxResults(maxResults).list();
+		List<T> res = (List<T>) criteria.getExecutableCriteria(getCurrentSession()).setFirstResult(firstResult)
+				.setMaxResults(maxResults).list();
 		tx.commit();
 		return res;
 	}
