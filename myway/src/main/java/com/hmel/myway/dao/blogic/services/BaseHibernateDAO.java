@@ -48,6 +48,9 @@ public abstract class BaseHibernateDAO<T extends Serializable, P extends Seriali
 
 	}
 
+	/*
+	 * int firstResult, int maxResults
+	 */
 	@SuppressWarnings("unchecked")
 	@Transactional(value = "transactionManager")
 	public List<T> findAll(int firstResult, int maxResults) throws PhoneDictionaryException, IllegalArgumentException{
