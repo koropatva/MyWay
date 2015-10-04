@@ -65,16 +65,8 @@ public class CriteriaBlock implements Serializable {
 		return creationTime;
 	}
 
-	public void setCreationTime(Date creationTime) {
-		this.creationTime = creationTime;
-	}
-
 	public Date getModifiedTime() {
 		return modifiedTime;
-	}
-
-	public void setModifiedTime(Date modifiedTime) {
-		this.modifiedTime = modifiedTime;
 	}
 
 	@Override

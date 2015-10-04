@@ -47,8 +47,6 @@ public class CriteriaServiceIntegrationTest {
 		criteria.setDescription(TEST_DESCRIPTION);
 		criteria.setName(TEST_NAME);
 		criteria.setType(type);
-		criteria.setModifiedTime(modifiedTime);
-		criteria.setCreationTime(creationTime);
 
 		criteria = iCriteriaService.create(criteria);
 		assertThat(criteria.getId()).describedAs("Id should be null")

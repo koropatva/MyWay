@@ -28,9 +28,7 @@ public class SimpleIntegrationTest {
 	public void test() {
 		try {
 			Criteria criteria = new Criteria();
-			criteria.setCreationTime(new Date());
 			criteria.setDescription("Test description");
-			criteria.setModifiedTime(new Date());
 			criteria.setName("Test name");
 			criteria.setType(CriteriaType.MONEY);
 
