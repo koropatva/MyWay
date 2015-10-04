@@ -14,7 +14,8 @@ public interface IHibernateDAO<T extends Serializable, P extends Serializable> {
 
 	public T findOne(P id) throws PhoneDictionaryException;
 
-	public List<T> findAll() throws PhoneDictionaryException;
+	public List<T> findAll(int firstResult,
+			int maxResults) throws PhoneDictionaryException;
 
 	public T create(T entity) throws PhoneDictionaryException;
 

@@ -25,6 +25,8 @@ import com.hmel.myway.exceptions.PhoneDictionaryException;
 @Controller
 @RequestMapping(value = "/destination")
 public class DestinationController {
+	
+	private static final int MAX_LIMIT_FOR_FIND_ALL=100;
 
 	@Autowired
 	private IDestinationService iDestinationService;
@@ -74,7 +76,7 @@ public class DestinationController {
 		logger.info("Get all destination ");
 		List<Destination> res = new ArrayList<>();
 		try {
-			res = iDestinationService.findAll();
+			res = iDestinationService.findAll(0,MAX_LIMIT_FOR_FIND_ALL);
 		} catch (PhoneDictionaryException e) {
 			logger.error(e.getMessage(), e);
 		}
