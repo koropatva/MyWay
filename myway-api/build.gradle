@@ -14,11 +14,17 @@ apply plugin: 'eclipse'
 apply plugin: 'java'
 apply plugin: 'maven'
 apply plugin: 'spring-boot'
+apply plugin: 'war'
 
 apply plugin: 'builder'
 
 group = 'com.hmel'
 version = '0.0.1'
+
+war {
+	baseName = 'myway'
+	version = '0.0.1'
+}
 
 schema {
         fileUri ="${project.rootDir}/sql-files/"
@@ -54,6 +60,12 @@ buildscript{
 
 repositories {
 	mavenCentral()
+	jcenter()
+	maven { url "http://repo.spring.io/libs-snapshot" }
+}
+
+configurations {
+	providedRuntime
 }
 
 dependencies {
@@ -81,7 +93,8 @@ dependencies {
 	
 	compile "org.springframework.boot:spring-boot-gradle-plugin:${springframework.bookGradlePlugin}"
 
-	
+	providedRuntime "org.springframework.boot:spring-boot-starter-tomcat"	
+
 	compile project (":myway")
 	compile project (":myway-interfaces")
 }

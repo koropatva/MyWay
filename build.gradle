@@ -1,7 +1,6 @@
 apply plugin: 'eclipse'
 apply plugin: 'java'
-apply from: "version.gradle"
-
+apply from: 'version.gradle'
 
 
 jar {
