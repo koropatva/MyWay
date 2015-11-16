@@ -3,7 +3,7 @@ class Springframework {
 	String web = '4.2.1.RELEASE'
 	String aspects = '4.2.1.RELEASE'
 	String test = '4.2.1.RELEASE'
-	String bookGradlePlugin = '1.2.3.RELEASE'
+	String bootGradlePlugin = '1.2.3.RELEASE'
 	String context = '4.2.1.RELEASE'
 	String tx = '4.2.1.RELEASE'
 }

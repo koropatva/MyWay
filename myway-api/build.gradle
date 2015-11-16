@@ -54,7 +54,7 @@ buildscript{
  		mavenCentral()
  	}
  	dependencies{
- 		classpath "org.springframework.boot:spring-boot-gradle-plugin:1.2.3.RELEASE"
+ 		classpath "org.springframework.boot:spring-boot-gradle-plugin:${springframework.bootGradlePlugin}"
  	}
 }
 
@@ -91,7 +91,7 @@ dependencies {
 	  exclude module: "logback-classic"
 	}
 	
-	compile "org.springframework.boot:spring-boot-gradle-plugin:${springframework.bookGradlePlugin}"
+	compile "org.springframework.boot:spring-boot-gradle-plugin:${springframework.bootGradlePlugin}"
 
 	providedRuntime "org.springframework.boot:spring-boot-starter-tomcat"	
 
