@@ -93,6 +93,8 @@ dependencies {
 	
 	compile "org.springframework.boot:spring-boot-gradle-plugin:${springframework.bootGradlePlugin}"
 
+        compile 'org.hibernate:hibernate-c3p0:4.1.0.Final'
+
 	providedRuntime "org.springframework.boot:spring-boot-starter-tomcat"	
 
 	compile project (":myway")
