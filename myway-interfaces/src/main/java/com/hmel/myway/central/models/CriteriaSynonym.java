@@ -12,24 +12,26 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.hmel.myway.dao.blogic.interfaces.IEntity;
+
 @Entity
-@Table(name = "criteria_block")
-public class CriteriaBlock implements Serializable {
+@Table(name = "criteria_synonim_ua")
+public class CriteriaSynonym implements IEntity, Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private Long id;
+
+	private String description;
+
+	private Integer rate;
 
 	@ManyToOne
-	@JoinColumn(name = "criteriaId")
+	@JoinColumn(name = "criteria_id")
 	private Criteria criteria;
-
-	@ManyToOne
-	@JoinColumn(name = "blockId")
-	private Block block;
 
 	@Column(name = "creation_time")
 	private Date creationTime;
@@ -37,28 +39,20 @@ public class CriteriaBlock implements Serializable {
 	@Column(name = "modified_time")
 	private Date modifiedTime;
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public Criteria getCriteria() {
-		return criteria;
+	public String getDescription() {
+		return description;
 	}
 
-	public void setCriteria(Criteria criteria) {
-		this.criteria = criteria;
-	}
-
-	public Block getBlock() {
-		return block;
-	}
-
-	public void setBlock(Block block) {
-		this.block = block;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public Date getCreationTime() {
@@ -69,11 +63,20 @@ public class CriteriaBlock implements Serializable {
 		return modifiedTime;
 	}
 
-	@Override
-	public String toString() {
-		return "CriteriaBlock [id=" + id + ", criteria=" + criteria
-				+ ", block=" + block + ", creationTime=" + creationTime
-				+ ", modifiedTime=" + modifiedTime + "]";
+	public Integer getRate() {
+		return rate;
+	}
+
+	public void setRate(Integer rate) {
+		this.rate = rate;
+	}
+
+	public Criteria getCriteria() {
+		return criteria;
+	}
+
+	public void setCriteria(Criteria criteria) {
+		this.criteria = criteria;
 	}
 
 }

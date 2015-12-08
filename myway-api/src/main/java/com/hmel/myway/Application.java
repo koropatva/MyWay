@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.web.SpringBootServletInitializer;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.WebApplicationInitializer;
 
 /**
  * @author Burkovskiy Alexander
@@ -12,7 +13,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @SpringBootApplication
-public class Application extends SpringBootServletInitializer{
+public class Application extends SpringBootServletInitializer implements WebApplicationInitializer{
 
 	@Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
