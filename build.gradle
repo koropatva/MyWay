@@ -38,7 +38,6 @@ subprojects {
 
 dependencies {
 	driver "mysql:mysql-connector-java:${mysql.connectorJava}"
-	compile "org.springframework:spring-web:${springframework.web}"
 }
 URLClassLoader loader = GroovyObject.class.classLoader
 configurations.driver.each {File file ->

@@ -4,23 +4,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.hmel.myway.central.blogic.interfaces.IBlockService;
-import com.hmel.myway.central.models.Block;
+import com.hmel.myway.central.blogic.interfaces.IHotelService;
+import com.hmel.myway.central.models.Hotel;
 
 /**
  * @author Burkovskiy Alexander
  */
-
 @Controller
-@RequestMapping(value = "/block")
-public class BlockController extends BaseController<Block, Long> {
+@RequestMapping(value = "/hotel")
+public class HotelController extends BaseController<Hotel, Long> {
 
 	@Autowired
-	private IBlockService iBlockService;
+	private IHotelService iHotelService;
 
-	@Override
 	protected void setIHibernateDAO() {
-		this.iHibernateDAO = iBlockService;
+		this.iHibernateDAO = iHotelService;
 	}
 
 }

@@ -16,13 +16,14 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.hmel.myway.central.blogic.services.BlockService;
+import com.hmel.myway.dao.blogic.interfaces.IEntity;
 import com.hmel.myway.dao.blogic.interfaces.IHibernateDAO;
-import com.hmel.myway.exceptions.PhoneDictionaryException;
+import com.hmel.myway.exceptions.MyWayException;
 
 /**
  * @author Burkovskiy Alexander
  */
-public abstract class BaseHibernateDAO<T extends Serializable, P extends Serializable> implements IHibernateDAO<T, P> {
+public abstract class BaseHibernateDAO<T extends IEntity, P extends Serializable> implements IHibernateDAO<T, P> {
 
 	protected static final Logger logger = LoggerFactory.getLogger(BlockService.class);
 
@@ -37,7 +38,7 @@ public abstract class BaseHibernateDAO<T extends Serializable, P extends Seriali
 		this.clazz = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
 	}
 
-	public T findOne(P id) throws PhoneDictionaryException {
+	public T findOne(P id) throws MyWayException {
 		logger.info("findOne CALLING");
 		getCurrentSession().beginTransaction();
 		try {
@@ -53,13 +54,13 @@ public abstract class BaseHibernateDAO<T extends Serializable, P extends Seriali
 	 */
 	@SuppressWarnings("unchecked")
 	@Transactional(value = "transactionManager")
-	public List<T> findAll(int firstResult, int maxResults) throws PhoneDictionaryException, IllegalArgumentException{
+	public List<T> findAll(int firstResult, int maxResults) throws MyWayException, IllegalArgumentException {
 		logger.info("findAll CALLING");
 		getCurrentSession().beginTransaction();
-		if(firstResult<0){
+		if (firstResult < 0) {
 			throw new IllegalArgumentException("first result must be >=0");
 		}
-		if(maxResults<=0 || maxResults<firstResult){
+		if (maxResults <= 0 || maxResults < firstResult) {
 			throw new IllegalArgumentException("max Results must be >=0 and < first Result");
 		}
 		try {
@@ -70,21 +71,21 @@ public abstract class BaseHibernateDAO<T extends Serializable, P extends Seriali
 		}
 	}
 
-	public T create(T entity) throws PhoneDictionaryException {
+	public T create(T entity) throws MyWayException {
 		logger.info("create CALLING");
 		getCurrentSession().beginTransaction();
 		try {
 			getCurrentSession().persist(entity);
 			getCurrentSession().getTransaction().commit();
-		}
-
-		finally {
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+		} finally {
 			getCurrentSession().close();
 		}
 		return entity;
 	}
 
-	public T update(T entity) throws PhoneDictionaryException {
+	public T update(T entity) throws MyWayException {
 		logger.info("update CALLING");
 		getCurrentSession().beginTransaction();
 		try {
@@ -99,7 +100,7 @@ public abstract class BaseHibernateDAO<T extends Serializable, P extends Seriali
 	}
 
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
-	public T save(T entity) throws PhoneDictionaryException {
+	public T save(T entity) throws MyWayException {
 		logger.info("save CALLING");
 		getCurrentSession().beginTransaction();
 		try {
@@ -111,7 +112,7 @@ public abstract class BaseHibernateDAO<T extends Serializable, P extends Seriali
 		return entity;
 	}
 
-	public void delete(T entity) throws PhoneDictionaryException {
+	public void delete(T entity) throws MyWayException {
 		logger.info("delete CALLING");
 		getCurrentSession().beginTransaction();
 		try {
@@ -122,7 +123,7 @@ public abstract class BaseHibernateDAO<T extends Serializable, P extends Seriali
 		}
 	}
 
-	public void deleteById(P entityId) throws PhoneDictionaryException {
+	public void deleteById(P entityId) throws MyWayException {
 		logger.info("deleteById CALLING");
 		T entity = findOne(entityId);
 		delete(entity);
@@ -134,7 +135,7 @@ public abstract class BaseHibernateDAO<T extends Serializable, P extends Seriali
 	 * @param criteria
 	 * @return all records
 	 */
-	public List<T> findByCriteria(DetachedCriteria criteria) throws PhoneDictionaryException {
+	public List<T> findByCriteria(DetachedCriteria criteria) throws MyWayException {
 		logger.info("findByCriteria CALLING");
 		return findByCriteria(criteria, 0, Integer.MAX_VALUE);
 	}
@@ -146,8 +147,7 @@ public abstract class BaseHibernateDAO<T extends Serializable, P extends Seriali
 	 *         if not present necessary amout in db)
 	 */
 	@SuppressWarnings("unchecked")
-	public List<T> findByCriteria(DetachedCriteria criteria, int firstResult, int maxResults)
-			throws PhoneDictionaryException {
+	public List<T> findByCriteria(DetachedCriteria criteria, int firstResult, int maxResults) throws MyWayException {
 		logger.info("findByCriteria CALLING");
 		if (criteria == null) {
 			throw new IllegalArgumentException("criteria can't be null");
