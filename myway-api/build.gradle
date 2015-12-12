@@ -1,22 +1,8 @@
-buildscript {
-        repositories {
-                mavenLocal()
-                maven {
-                        url uri('../libs')
-                }
-        }
-        dependencies {
-                classpath 'com.hmel:builder:0.1.2-SNAPSHOT'
-        }
-}
-
 apply plugin: 'eclipse'
 apply plugin: 'java'
 apply plugin: 'maven'
 apply plugin: 'spring-boot'
 apply plugin: 'war'
-
-apply plugin: 'builder'
 
 group = 'com.hmel'
 version = '0.0.1'
@@ -24,25 +10,6 @@ version = '0.0.1'
 war {
 	baseName = 'myway'
 	version = '0.0.1'
-}
-
-schema {
-        fileUri ="${project.rootDir}/sql-files/"
-        fileExtensions = ".sql"
-        commentChar = "#"
-}
-datasource {
-        //Load base sql configurations from the database.properties
-        def props = new Properties()
-	def path =  "${project.rootDir}/myway/src/main/resources/database.properties"
-        new File(path ).withInputStream {
-                stream -> props.load(stream)
-        }
-        //Fill schema configs
-        login = props["db.username"]
-        pswd = props["db.password"]
-        url = props["db.url"]
-        driver = props["db.driverClassName"]
 }
 
 jar {
@@ -85,8 +52,6 @@ dependencies {
 	compile "mysql:mysql-connector-java:${mysql.connectorJava}"
 	compile "org.slf4j:slf4j-api:${slf4j.api}"
 
-//	compile "javax.servlet:javax.servlet-api:3.1.0"
-//	compile "javax.transaction:jta:1.1"
 	testCompile "junit:junit:${junit.junit}"		
 	testCompile "org.springframework:spring-test:${springframework.test}"
 	testCompile "org.assertj:assertj-core:${assertj.core}"
