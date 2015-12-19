@@ -17,6 +17,10 @@ buildscript{
  	}
 }
 
+configurations {
+	liquibaseConf
+}
+
 repositories {
 	mavenCentral()
 }
@@ -38,8 +42,24 @@ dependencies {
 	compile "org.assertj:assertj-core:${assertj.core}"	
 
 	compile project (":myway-interfaces")
-}
-task wrapper(type:Wrapper){
-	gradleVersion='2.4'
+
+	liquibaseConf "mysql:mysql-connector-java:${mysql.connectorJava}"
+	liquibaseConf "org.liquibase:liquibase-core:${liquibase.core}"
 }
 
+task migrate (type: JavaExec) {
+	description "Run migrate script for selected enviroments"
+	group = "Liquibase"
+	classpath configurations.liquibaseConf
+	main = "liquibase.integration.commandline.Main"
+	
+	Properties props = new Properties()
+	props.load(new FileInputStream("$project.rootDir/myway/src/main/resources/database.properties"))
+
+	args "--changeLogFile=src/main/resources/db/changelog/db.changelog-master.xml"
+	args "--username=" + props.getProperty("db.username")
+	args "--password=" + props.getProperty("db.password")
+	args "--url=" + props.getProperty("db.url")
+	args "--driver=" + props.getProperty("db.driverClassName")
+	args "migrate"
+}
