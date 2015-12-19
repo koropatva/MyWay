@@ -12,6 +12,10 @@ class MySql {
 	String connectorJava = '5.1.18'
 }
 
+class Liquibase {
+	String core = '3.4.2'
+}
+
 class Hibernate {
 	String core = '4.3.11.Final'
 	String c3p0 = '4.3.11.Final'
@@ -47,5 +51,5 @@ project.extensions.create('junit', JUnit)
 project.extensions.create('commons', Commons)
 project.extensions.create('slf4j', Slf4j)
 project.extensions.create('assertj', AssertJ)
-
+project.extensions.create('liquibase', Liquibase)
 
