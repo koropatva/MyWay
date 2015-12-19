@@ -56,7 +56,7 @@ task migrate (type: JavaExec) {
 	Properties props = new Properties()
 	props.load(new FileInputStream("$project.rootDir/myway/src/main/resources/database.properties"))
 
-	args "--changeLogFile=src/main/resources/db/changelog/db.changelog-master.xml"
+	args "--changeLogFile=src/main/resources/db/db.changelog-master.xml"
 	args "--username=" + props.getProperty("db.username")
 	args "--password=" + props.getProperty("db.password")
 	args "--url=" + props.getProperty("db.url")
