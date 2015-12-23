@@ -1,0 +1,32 @@
+{
+	"changeSet": {
+		"id": "a",
+		"author": "andrii",
+		"changes": [
+   		{
+				"createTable": {
+					"name": "block_ua",
+					"columns": [
+		    		{
+							"column":	{
+								"name": "id",
+								"type": "int",
+								"autoIncrement": "true",
+								"constrains": {
+									"primaryKey": "true",
+									"nullable": "false"
+								}
+							}
+		    		},
+		    		{
+							"column": {
+								"name"
+							}
+		    		}
+					]
+				}
+			}
+		]
+	}
+}
+								
