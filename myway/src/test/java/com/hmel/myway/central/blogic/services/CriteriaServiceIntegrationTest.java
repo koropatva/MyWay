@@ -42,7 +42,7 @@ public class CriteriaServiceIntegrationTest {
 		criteria.setName(TEST_NAME);
 
 		criteria = iCriteriaService.create(criteria);
-		assertThat(criteria.getId()).describedAs("Id should be null").isNotNull();
+		assertThat(criteria.getId()).describedAs("Id shouldn't be null").isNotNull();
 	}
 
 	@After
@@ -110,7 +110,7 @@ public class CriteriaServiceIntegrationTest {
 		assertThat(result.getDescription()).describedAs("Descriptions should be equals.")
 				.isEqualTo(field.getDescription());
 		assertThat(result.getName()).describedAs("Names should be equals.").isEqualTo(field.getName());
-		assertThat(result.getCreationTime()).describedAs("CreationTimes should be equals.").isNotNull();
-		assertThat(result.getModifiedTime()).describedAs("ModifiedTimes should be equals.").isNotNull();
+		assertThat(result.getModifiedTime()).describedAs("ModifiedTimes shouldn't be null.").isNotNull();
+		assertThat(result.getCreationTime()).describedAs("CreationTimes shouldn't be null.").isNotNull();
 	}
 }
