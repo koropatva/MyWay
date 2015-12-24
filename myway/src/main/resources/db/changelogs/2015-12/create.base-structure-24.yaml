@@ -89,6 +89,9 @@ databaseChangeLog:
                     unique: true
                     uniqueConstraintName: key_place_id
               - column:
+                  name: name
+                  type: varchar(255)
+              - column:
                   name: creation_time
                   type: DATETIME
               - column:
