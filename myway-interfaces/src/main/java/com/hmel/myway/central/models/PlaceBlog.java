@@ -31,10 +31,10 @@ public class PlaceBlog implements IEntity, Serializable {
 
 	private String blogURL;
 
-	@Column(name = "creation_time")
+	@Column(name = "creation_time", insertable=false, updatable = false)
 	private Date creationTime;
 
-	@Column(name = "modified_time")
+	@Column(name = "modified_time", insertable=false, updatable = false)
 	private Date modifiedTime;
 
 	public Long getId() {

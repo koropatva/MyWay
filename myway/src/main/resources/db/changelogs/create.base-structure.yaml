@@ -29,11 +29,15 @@ databaseChangeLog:
               - column:
                   name: creation_time
                   type: DATETIME
-                  defaultValueDate: NOW()
               - column:
                   name: modified_time
                   type: DATETIME
-                  defaultValueDate: NOW()
+        - sql:
+          comment: Update block_ua.creation_time
+          sql: ALTER TABLE block_ua MODIFY COLUMN creation_time DATETIME DEFAULT CURRENT_TIMESTAMP;
+        - sql:
+          comment: Update block_ua.modified_time
+          sql: ALTER TABLE block_ua MODIFY COLUMN modified_time DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP;
         - createTable:
             tableName: criteria
             columns:
@@ -53,11 +57,15 @@ databaseChangeLog:
               - column:
                   name: creation_time
                   type: DATETIME
-                  defaultValueDate: NOW()
               - column:
                   name: modified_time
                   type: DATETIME
-                  defaultValueDate: NOW()
+        - sql:
+          comment: Update criteria.creation_time
+          sql: ALTER TABLE criteria MODIFY COLUMN creation_time DATETIME DEFAULT CURRENT_TIMESTAMP;
+        - sql:
+          comment: Update criteria.modified_time
+          sql: ALTER TABLE criteria MODIFY COLUMN modified_time DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP;
         - createTable:
             tableName: criteria_place
             columns:
@@ -83,11 +91,15 @@ databaseChangeLog:
               - column:
                   name: creation_time
                   type: DATETIME
-                  defaultValueDate: NOW()
               - column:
                   name: modified_time
                   type: DATETIME
-                  defaultValueDate: NOW()
+        - sql:
+          comment: Update criteria_place.creation_time
+          sql: ALTER TABLE criteria_place MODIFY COLUMN creation_time DATETIME DEFAULT CURRENT_TIMESTAMP;
+        - sql:
+          comment: Update criteria_place.modified_time
+          sql: ALTER TABLE criteria_place MODIFY COLUMN modified_time DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP;
         - createTable:
             tableName: criteria_synonim_ua
             columns:
@@ -113,11 +125,15 @@ databaseChangeLog:
               - column:
                   name: creation_time
                   type: DATETIME
-                  defaultValueDate: NOW()
               - column:
                   name: modified_time
                   type: DATETIME
-                  defaultValueDate: NOW()
+        - sql:
+          comment: Update criteria_synonim_ua.creation_time
+          sql: ALTER TABLE criteria_synonim_ua MODIFY COLUMN creation_time DATETIME DEFAULT CURRENT_TIMESTAMP;
+        - sql:
+          comment: Update criteria_synonim_ua.modified_time
+          sql: ALTER TABLE criteria_synonim_ua MODIFY COLUMN modified_time DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP;
         - createTable:
             tableName: hotel
             columns:
@@ -146,11 +162,15 @@ databaseChangeLog:
               - column:
                   name: creation_time
                   type: DATETIME
-                  defaultValueDate: NOW()
               - column:
                   name: modified_time
                   type: DATETIME
-                  defaultValueDate: NOW()
+        - sql:
+          comment: Update hotel.creation_time
+          sql: ALTER TABLE hotel MODIFY COLUMN creation_time DATETIME DEFAULT CURRENT_TIMESTAMP;
+        - sql:
+          comment: Update hotel.modified_time
+          sql: ALTER TABLE hotel MODIFY COLUMN modified_time DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP;
         - createTable:
             tableName: place
             columns:
@@ -182,11 +202,15 @@ databaseChangeLog:
               - column:
                   name: creation_time
                   type: DATETIME
-                  defaultValueDate: NOW()
               - column:
                   name: modified_time
                   type: DATETIME
-                  defaultValueDate: NOW()
+        - sql:
+          comment: Update place.creation_time
+          sql: ALTER TABLE place MODIFY COLUMN creation_time DATETIME DEFAULT CURRENT_TIMESTAMP;
+        - sql:
+          comment: Update place.modified_time
+          sql: ALTER TABLE place MODIFY COLUMN modified_time DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP;
         - createTable:
             tableName: place_blog_ua
             columns:
@@ -206,8 +230,12 @@ databaseChangeLog:
               - column:
                   name: creation_time
                   type: DATETIME
-                  defaultValueDate: NOW()
               - column:
                   name: modified_time
                   type: DATETIME
-                  defaultValueDate: NOW()
+        - sql:
+          comment: Update place_blog_ua.creation_time
+          sql: ALTER TABLE place_blog_ua MODIFY COLUMN creation_time DATETIME DEFAULT CURRENT_TIMESTAMP;
+        - sql:
+          comment: Update place_blog_ua.modified_time
+          sql: ALTER TABLE place_blog_ua MODIFY COLUMN modified_time DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP;
