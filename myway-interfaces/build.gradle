@@ -15,10 +15,10 @@ repositories {
 }
 
 dependencies {
-	compile "org.springframework:spring-web:4.0.3.RELEASE"
-	compile "org.hibernate:hibernate-core:4.3.10.Final"
-	compile "mysql:mysql-connector-java:5.1.16"
-	compile "org.springframework:spring-orm:4.1.6.RELEASE"
+	compile "org.hibernate:hibernate-core:${hibernate.core}"
+	compile "log4j:log4j:${log4j.log4j}"
+	compile "mysql:mysql-connector-java:${mysql.connectorJava}"
+	compile "junit:junit:${junit.junit}"
 }
 
 

@@ -5,18 +5,18 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.hmel.myway.central.enums.PlaceType;
 import com.hmel.myway.dao.blogic.interfaces.IEntity;
 
 @Entity
-@Table(name = "block_ua")
-public class Block implements IEntity, Serializable {
+@Table(name = "place")
+public class Place implements IEntity, Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -25,44 +25,79 @@ public class Block implements IEntity, Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(name = "short_description")
-	private String shortDescription;
+	private String name;
 
-	private String description;
+	@Enumerated
+	private PlaceType type;
 
-	@ManyToOne
-	@JoinColumn(name = "place_id")
-	private Place place;
-
+	private String city;
+	
+	private String country;
+	
+	private float x;
+	
+	private float y;
+	
 	@Column(name = "creation_time", insertable=false, updatable = false)
 	private Date creationTime;
 
 	@Column(name = "modified_time", insertable=false, updatable = false)
 	private Date modifiedTime;
 
-
-	public String getShortDescription() {
-		return shortDescription;
+	public Long getId() {
+		return id;
 	}
 
-	public void setShortDescription(String shortDescription) {
-		this.shortDescription = shortDescription;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
-	public String getDescription() {
-		return description;
+	public String getName() {
+		return name;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public Place getPlace() {
-		return place;
+	public PlaceType getType() {
+		return type;
 	}
 
-	public void setPlace(Place place) {
-		this.place = place;
+	public void setType(PlaceType type) {
+		this.type = type;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
+	public float getX() {
+		return x;
+	}
+
+	public void setX(float x) {
+		this.x = x;
+	}
+
+	public float getY() {
+		return y;
+	}
+
+	public void setY(float y) {
+		this.y = y;
 	}
 
 	public Date getCreationTime() {
@@ -79,13 +114,5 @@ public class Block implements IEntity, Serializable {
 
 	public void setModifiedTime(Date modifiedTime) {
 		this.modifiedTime = modifiedTime;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 }

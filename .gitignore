@@ -1,15 +1,24 @@
 *.class
 .classpath
+.DS_Store
 .git/*
 .gradle/*
 .project
 .settings
+build/*
 myway/.classpath
 myway/.project
 myway/.settings
 myway/bin/*
 myway/build/*
 myway/output.log
+myway-api/.classpath
+myway-api/,DS_Store
+myway-api/.project
+myway-api/.settings
+myway-api/bin/*
+myway-api/build/*
+myway-api/output.log
 myway-interfaces/.classpath
 myway-interfaces/.project
 myway-interfaces/.settings
@@ -20,6 +29,10 @@ myway-interfaces/build/*
 
 # Package Files #
 *.jar
+!libs/**/*.jar
+libs/.DS_Store
+libs/com/.DS_Store
+libs/com/hmel/.DS_Store
 *.war
 *.ear
 

@@ -1,0 +1,241 @@
+databaseChangeLog:
+
+  - changeSet:
+      id: 15.12.24
+      author: andrii
+      changes:
+        - createTable:
+            tableName: block_ua
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: place_id
+                  type: int
+                  constraints:
+                    unique: true
+                    uniqueConstraintName: key_place_id
+              - column:
+                  name: short_description
+                  type: varchar(255)
+              - column:
+                  name: description
+                  type: text
+              - column:
+                  name: creation_time
+                  type: DATETIME
+              - column:
+                  name: modified_time
+                  type: DATETIME
+        - sql:
+          comment: Update block_ua.creation_time
+          sql: ALTER TABLE block_ua MODIFY COLUMN creation_time DATETIME DEFAULT CURRENT_TIMESTAMP;
+        - sql:
+          comment: Update block_ua.modified_time
+          sql: ALTER TABLE block_ua MODIFY COLUMN modified_time DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP;
+        - createTable:
+            tableName: criteria
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(255)
+              - column:
+                  name: description
+                  type: text
+              - column:
+                  name: creation_time
+                  type: DATETIME
+              - column:
+                  name: modified_time
+                  type: DATETIME
+        - sql:
+          comment: Update criteria.creation_time
+          sql: ALTER TABLE criteria MODIFY COLUMN creation_time DATETIME DEFAULT CURRENT_TIMESTAMP;
+        - sql:
+          comment: Update criteria.modified_time
+          sql: ALTER TABLE criteria MODIFY COLUMN modified_time DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP;
+        - createTable:
+            tableName: criteria_place
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: criteria_id
+                  type: int
+                  constraints:
+                    unique: true
+                    uniqueConstraintName: key_criteria_id
+              - column:
+                  name: place_id
+                  type: int
+                  constraints:
+                    unique: true
+                    uniqueConstraintName: key_place_id
+              - column:
+                  name: creation_time
+                  type: DATETIME
+              - column:
+                  name: modified_time
+                  type: DATETIME
+        - sql:
+          comment: Update criteria_place.creation_time
+          sql: ALTER TABLE criteria_place MODIFY COLUMN creation_time DATETIME DEFAULT CURRENT_TIMESTAMP;
+        - sql:
+          comment: Update criteria_place.modified_time
+          sql: ALTER TABLE criteria_place MODIFY COLUMN modified_time DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP;
+        - createTable:
+            tableName: criteria_synonim_ua
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: criteria_id
+                  type: int
+                  constraints:
+                    unique: true
+                    uniqueConstraintName: key_criteria_id
+              - column:
+                  name: description
+                  type: text
+              - column:
+                  name: rate
+                  type: int
+              - column:
+                  name: creation_time
+                  type: DATETIME
+              - column:
+                  name: modified_time
+                  type: DATETIME
+        - sql:
+          comment: Update criteria_synonim_ua.creation_time
+          sql: ALTER TABLE criteria_synonim_ua MODIFY COLUMN creation_time DATETIME DEFAULT CURRENT_TIMESTAMP;
+        - sql:
+          comment: Update criteria_synonim_ua.modified_time
+          sql: ALTER TABLE criteria_synonim_ua MODIFY COLUMN modified_time DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP;
+        - createTable:
+            tableName: hotel
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(255)
+              - column:
+                  name: city
+                  type: varchar(255)
+              - column:
+                  name: country
+                  type: varchar(255)
+              - column:
+                  name: x
+                  type: float
+              - column:
+                  name: y
+                  type: float
+              - column:
+                  name: creation_time
+                  type: DATETIME
+              - column:
+                  name: modified_time
+                  type: DATETIME
+        - sql:
+          comment: Update hotel.creation_time
+          sql: ALTER TABLE hotel MODIFY COLUMN creation_time DATETIME DEFAULT CURRENT_TIMESTAMP;
+        - sql:
+          comment: Update hotel.modified_time
+          sql: ALTER TABLE hotel MODIFY COLUMN modified_time DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP;
+        - createTable:
+            tableName: place
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(255)
+              - column:
+                  name: city
+                  type: varchar(255)
+              - column:
+                  name: country
+                  type: varchar(255)
+              - column:
+                  name: type
+                  type: ENUM('MONUMENT', 'NATIONAL_PLACE', 'HISTORICAL_PLACE')
+              - column:
+                  name: x
+                  type: float
+              - column:
+                  name: y
+                  type: float
+              - column:
+                  name: creation_time
+                  type: DATETIME
+              - column:
+                  name: modified_time
+                  type: DATETIME
+        - sql:
+          comment: Update place.creation_time
+          sql: ALTER TABLE place MODIFY COLUMN creation_time DATETIME DEFAULT CURRENT_TIMESTAMP;
+        - sql:
+          comment: Update place.modified_time
+          sql: ALTER TABLE place MODIFY COLUMN modified_time DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP;
+        - createTable:
+            tableName: place_blog_ua
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: place_id
+                  type: int
+              - column:
+                  name: blog_url
+                  type: text
+              - column:
+                  name: creation_time
+                  type: DATETIME
+              - column:
+                  name: modified_time
+                  type: DATETIME
+        - sql:
+          comment: Update place_blog_ua.creation_time
+          sql: ALTER TABLE place_blog_ua MODIFY COLUMN creation_time DATETIME DEFAULT CURRENT_TIMESTAMP;
+        - sql:
+          comment: Update place_blog_ua.modified_time
+          sql: ALTER TABLE place_blog_ua MODIFY COLUMN modified_time DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP;

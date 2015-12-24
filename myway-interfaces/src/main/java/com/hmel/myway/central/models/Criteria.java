@@ -5,44 +5,39 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import com.hmel.myway.central.enums.CriteriaType;
+import com.hmel.myway.dao.blogic.interfaces.IEntity;
 
 @Entity
 @Table(name = "criteria")
-public class Criteria implements Serializable {
+public class Criteria implements IEntity, Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private Long id;
 
 	private String name;
 
 	private String description;
 
-	@Enumerated(EnumType.STRING)
-	private CriteriaType type;
-
-	@Column(name = "creation_time")
+	@Column(name = "creation_time", insertable=false, updatable = false)
 	private Date creationTime;
 
-	@Column(name = "modified_time")
+	@Column(name = "modified_time", insertable=false, updatable = false)
 	private Date modifiedTime;
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -62,28 +57,12 @@ public class Criteria implements Serializable {
 		this.description = description;
 	}
 
-	public CriteriaType getType() {
-		return type;
-	}
-
-	public void setType(CriteriaType type) {
-		this.type = type;
-	}
-
 	public Date getCreationTime() {
 		return creationTime;
 	}
 
-	public void setCreationTime(Date creationTime) {
-		this.creationTime = creationTime;
-	}
-
 	public Date getModifiedTime() {
 		return modifiedTime;
-	}
-
-	public void setModifiedTime(Date modifiedTime) {
-		this.modifiedTime = modifiedTime;
 	}
 
 }

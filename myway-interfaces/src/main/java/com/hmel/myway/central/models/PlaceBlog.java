@@ -15,8 +15,8 @@ import javax.persistence.Table;
 import com.hmel.myway.dao.blogic.interfaces.IEntity;
 
 @Entity
-@Table(name = "block_ua")
-public class Block implements IEntity, Serializable {
+@Table(name = "place_blog_ua")
+public class PlaceBlog implements IEntity, Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -25,14 +25,11 @@ public class Block implements IEntity, Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(name = "short_description")
-	private String shortDescription;
-
-	private String description;
-
 	@ManyToOne
 	@JoinColumn(name = "place_id")
 	private Place place;
+
+	private String blogURL;
 
 	@Column(name = "creation_time", insertable=false, updatable = false)
 	private Date creationTime;
@@ -40,21 +37,12 @@ public class Block implements IEntity, Serializable {
 	@Column(name = "modified_time", insertable=false, updatable = false)
 	private Date modifiedTime;
 
-
-	public String getShortDescription() {
-		return shortDescription;
+	public Long getId() {
+		return id;
 	}
 
-	public void setShortDescription(String shortDescription) {
-		this.shortDescription = shortDescription;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public Place getPlace() {
@@ -63,6 +51,14 @@ public class Block implements IEntity, Serializable {
 
 	public void setPlace(Place place) {
 		this.place = place;
+	}
+
+	public String getBlogURL() {
+		return blogURL;
+	}
+
+	public void setBlogURL(String blogURL) {
+		this.blogURL = blogURL;
 	}
 
 	public Date getCreationTime() {
@@ -79,13 +75,5 @@ public class Block implements IEntity, Serializable {
 
 	public void setModifiedTime(Date modifiedTime) {
 		this.modifiedTime = modifiedTime;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 }

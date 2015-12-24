@@ -1,18 +1,6 @@
-buildscript {
-	repositories {
-		mavenLocal()
-		maven {
-			url uri('libs')
-		}
-	}
-	dependencies {
-		classpath 'com.hmel:builder:0.1-SNAPSHOT'
-	}
-}
-apply plugin: 'builder'
-
 apply plugin: 'eclipse'
 apply plugin: 'java'
+apply from: 'version.gradle'
 
 
 jar {
@@ -23,12 +11,33 @@ jar {
 repositories {
     	mavenCentral()
 }
+
 configurations{
 	driver
 }
+buildscript {
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath 'org.codehaus.groovy:groovy-backports-compat23:2.3.5'
+	}
+}
+
+
+allprojects {
+	apply plugin: 'java'
+	sourceCompatibility = 1.8
+	targetCompatibility = 1.8
+}
+subprojects {
+	apply from: "${parent.projectDir.canonicalPath}/cobertura.gradle"
+	apply from: "${parent.projectDir.canonicalPath}/version.gradle"
+	test.finalizedBy project.tasks.cobertura
+}
+
 dependencies {
-	driver "mysql:mysql-connector-java:5.1.18"
-	compile "org.springframework:spring-web:4.0.3.RELEASE"
+	driver "mysql:mysql-connector-java:${mysql.connectorJava}"
 }
 URLClassLoader loader = GroovyObject.class.classLoader
 configurations.driver.each {File file ->

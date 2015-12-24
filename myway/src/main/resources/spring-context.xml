@@ -18,8 +18,8 @@
 	<context:component-scan base-package="com.hmel.myway" />
 
 	<context:property-placeholder location='database.properties' />
-	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
-		destroy-method="close">
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"
+		>
 		<property name="driverClassName" value='${db.driverClassName}' />
 		<property name="url" value='${db.url}' />
 		<property name="username" value='${db.username}' />
@@ -44,6 +44,7 @@
 
 	<bean id="transactionManager"
 		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="dataSource" ref="dataSource" />
 		<property name="sessionFactory" ref="localSessionFactory" />
 	</bean>
 

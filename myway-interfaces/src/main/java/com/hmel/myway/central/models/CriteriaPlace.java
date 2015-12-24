@@ -15,8 +15,8 @@ import javax.persistence.Table;
 import com.hmel.myway.dao.blogic.interfaces.IEntity;
 
 @Entity
-@Table(name = "block_ua")
-public class Block implements IEntity, Serializable {
+@Table(name = "criteria_place")
+public class CriteriaPlace implements IEntity, Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -25,36 +25,44 @@ public class Block implements IEntity, Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(name = "short_description")
-	private String shortDescription;
-
-	private String description;
-
+	private String name;
+	
 	@ManyToOne
-	@JoinColumn(name = "place_id")
+	@JoinColumn(name="criteria_id")
+	private Criteria criteria;
+	
+	@ManyToOne
+	@JoinColumn(name="place_id")
 	private Place place;
-
+	
 	@Column(name = "creation_time", insertable=false, updatable = false)
 	private Date creationTime;
 
 	@Column(name = "modified_time", insertable=false, updatable = false)
 	private Date modifiedTime;
 
-
-	public String getShortDescription() {
-		return shortDescription;
+	public Long getId() {
+		return id;
 	}
 
-	public void setShortDescription(String shortDescription) {
-		this.shortDescription = shortDescription;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
-	public String getDescription() {
-		return description;
+	public String getName() {
+		return name;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Criteria getCriteria() {
+		return criteria;
+	}
+
+	public void setCriteria(Criteria criteria) {
+		this.criteria = criteria;
 	}
 
 	public Place getPlace() {
@@ -79,13 +87,5 @@ public class Block implements IEntity, Serializable {
 
 	public void setModifiedTime(Date modifiedTime) {
 		this.modifiedTime = modifiedTime;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 }

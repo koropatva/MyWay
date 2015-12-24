@@ -15,8 +15,8 @@ import javax.persistence.Table;
 import com.hmel.myway.dao.blogic.interfaces.IEntity;
 
 @Entity
-@Table(name = "block_ua")
-public class Block implements IEntity, Serializable {
+@Table(name = "criteria_synonim_ua")
+public class CriteriaSynonym implements IEntity, Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -25,14 +25,13 @@ public class Block implements IEntity, Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(name = "short_description")
-	private String shortDescription;
-
 	private String description;
 
+	private Integer rate;
+
 	@ManyToOne
-	@JoinColumn(name = "place_id")
-	private Place place;
+	@JoinColumn(name = "criteria_id")
+	private Criteria criteria;
 
 	@Column(name = "creation_time", insertable=false, updatable = false)
 	private Date creationTime;
@@ -40,13 +39,12 @@ public class Block implements IEntity, Serializable {
 	@Column(name = "modified_time", insertable=false, updatable = false)
 	private Date modifiedTime;
 
-
-	public String getShortDescription() {
-		return shortDescription;
+	public Long getId() {
+		return id;
 	}
 
-	public void setShortDescription(String shortDescription) {
-		this.shortDescription = shortDescription;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getDescription() {
@@ -57,35 +55,28 @@ public class Block implements IEntity, Serializable {
 		this.description = description;
 	}
 
-	public Place getPlace() {
-		return place;
-	}
-
-	public void setPlace(Place place) {
-		this.place = place;
-	}
-
 	public Date getCreationTime() {
 		return creationTime;
-	}
-
-	public void setCreationTime(Date creationTime) {
-		this.creationTime = creationTime;
 	}
 
 	public Date getModifiedTime() {
 		return modifiedTime;
 	}
 
-	public void setModifiedTime(Date modifiedTime) {
-		this.modifiedTime = modifiedTime;
+	public Integer getRate() {
+		return rate;
 	}
 
-	public Long getId() {
-		return id;
+	public void setRate(Integer rate) {
+		this.rate = rate;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public Criteria getCriteria() {
+		return criteria;
 	}
+
+	public void setCriteria(Criteria criteria) {
+		this.criteria = criteria;
+	}
+
 }
