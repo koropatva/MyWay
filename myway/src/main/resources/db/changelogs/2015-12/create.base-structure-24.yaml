@@ -1,8 +1,8 @@
 databaseChangeLog:
 
   - changeSet:
-      id: 15.12.24
-      author: andrii
+      id: 17:20
+      author: koropatva
       changes:
         - createTable:
             tableName: block_ua
