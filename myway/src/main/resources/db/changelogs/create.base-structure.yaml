@@ -1,0 +1,213 @@
+databaseChangeLog:
+
+  - changeSet:
+      id: 15.12.24
+      author: andrii
+      changes:
+        - createTable:
+            tableName: block_ua
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: place_id
+                  type: int
+                  constraints:
+                    unique: true
+                    uniqueConstraintName: key_place_id
+              - column:
+                  name: short_description
+                  type: varchar(255)
+              - column:
+                  name: description
+                  type: text
+              - column:
+                  name: creation_time
+                  type: DATETIME
+                  defaultValueDate: NOW()
+              - column:
+                  name: modified_time
+                  type: DATETIME
+                  defaultValueDate: NOW()
+        - createTable:
+            tableName: criteria
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(255)
+              - column:
+                  name: description
+                  type: text
+              - column:
+                  name: creation_time
+                  type: DATETIME
+                  defaultValueDate: NOW()
+              - column:
+                  name: modified_time
+                  type: DATETIME
+                  defaultValueDate: NOW()
+        - createTable:
+            tableName: criteria_place
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: criteria_id
+                  type: int
+                  constraints:
+                    unique: true
+                    uniqueConstraintName: key_criteria_id
+              - column:
+                  name: place_id
+                  type: int
+                  constraints:
+                    unique: true
+                    uniqueConstraintName: key_place_id
+              - column:
+                  name: creation_time
+                  type: DATETIME
+                  defaultValueDate: NOW()
+              - column:
+                  name: modified_time
+                  type: DATETIME
+                  defaultValueDate: NOW()
+        - createTable:
+            tableName: criteria_synonim_ua
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: criteria_id
+                  type: int
+                  constraints:
+                    unique: true
+                    uniqueConstraintName: key_criteria_id
+              - column:
+                  name: description
+                  type: text
+              - column:
+                  name: rate
+                  type: int
+              - column:
+                  name: creation_time
+                  type: DATETIME
+                  defaultValueDate: NOW()
+              - column:
+                  name: modified_time
+                  type: DATETIME
+                  defaultValueDate: NOW()
+        - createTable:
+            tableName: hotel
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(255)
+              - column:
+                  name: city
+                  type: varchar(255)
+              - column:
+                  name: country
+                  type: varchar(255)
+              - column:
+                  name: x
+                  type: float
+              - column:
+                  name: y
+                  type: float
+              - column:
+                  name: creation_time
+                  type: DATETIME
+                  defaultValueDate: NOW()
+              - column:
+                  name: modified_time
+                  type: DATETIME
+                  defaultValueDate: NOW()
+        - createTable:
+            tableName: place
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(255)
+              - column:
+                  name: city
+                  type: varchar(255)
+              - column:
+                  name: country
+                  type: varchar(255)
+              - column:
+                  name: type
+                  type: ENUM('MONUMENT', 'NATIONAL_PLACE', 'HISTORICAL_PLACE')
+              - column:
+                  name: x
+                  type: float
+              - column:
+                  name: y
+                  type: float
+              - column:
+                  name: creation_time
+                  type: DATETIME
+                  defaultValueDate: NOW()
+              - column:
+                  name: modified_time
+                  type: DATETIME
+                  defaultValueDate: NOW()
+        - createTable:
+            tableName: place_blog_ua
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: place_id
+                  type: int
+              - column:
+                  name: blog_url
+                  type: text
+              - column:
+                  name: creation_time
+                  type: DATETIME
+                  defaultValueDate: NOW()
+              - column:
+                  name: modified_time
+                  type: DATETIME
+                  defaultValueDate: NOW()
