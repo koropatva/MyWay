@@ -29,12 +29,13 @@ public class PlaceBlog implements IEntity, Serializable {
 	@JoinColumn(name = "place_id")
 	private Place place;
 
+	@Column(name = "blog_url")
 	private String blogURL;
 
-	@Column(name = "creation_time", insertable=false, updatable = false)
+	@Column(name = "creation_time", insertable = false, updatable = false)
 	private Date creationTime;
 
-	@Column(name = "modified_time", insertable=false, updatable = false)
+	@Column(name = "modified_time", insertable = false, updatable = false)
 	private Date modifiedTime;
 
 	public Long getId() {
