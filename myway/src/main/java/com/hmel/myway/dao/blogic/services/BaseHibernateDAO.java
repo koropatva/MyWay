@@ -6,7 +6,6 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.hibernate.criterion.DetachedCriteria;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,9 +22,11 @@ import com.hmel.myway.exceptions.MyWayException;
 /**
  * @author Burkovskiy Alexander
  */
-public abstract class BaseHibernateDAO<T extends IEntity, P extends Serializable> implements IHibernateDAO<T, P> {
+public abstract class BaseHibernateDAO<T extends IEntity, P extends Serializable>
+		implements IHibernateDAO<T, P> {
 
-	protected static final Logger logger = LoggerFactory.getLogger(BlockService.class);
+	protected static final Logger logger = LoggerFactory
+			.getLogger(BlockService.class);
 
 	protected Class<T> clazz;
 
@@ -35,13 +36,15 @@ public abstract class BaseHibernateDAO<T extends IEntity, P extends Serializable
 
 	@SuppressWarnings("unchecked")
 	public BaseHibernateDAO() {
-		this.clazz = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+		this.clazz = (Class<T>) ((ParameterizedType) getClass()
+				.getGenericSuperclass()).getActualTypeArguments()[0];
 	}
 
+	@SuppressWarnings("unchecked")
 	public T findOne(P id) throws MyWayException {
 		logger.info("findOne CALLING");
-		getCurrentSession().beginTransaction();
 		try {
+			getCurrentSession().beginTransaction();
 			return (T) getCurrentSession().get(clazz, id);
 		} finally {
 			getCurrentSession().close();
@@ -53,19 +56,24 @@ public abstract class BaseHibernateDAO<T extends IEntity, P extends Serializable
 	 * int firstResult, int maxResults
 	 */
 	@SuppressWarnings("unchecked")
-	@Transactional(value = "transactionManager")
-	public List<T> findAll(int firstResult, int maxResults) throws MyWayException, IllegalArgumentException {
+	public List<T> findAll(int firstResult, int maxResults)
+			throws MyWayException, IllegalArgumentException {
 		logger.info("findAll CALLING");
-		getCurrentSession().beginTransaction();
+
 		if (firstResult < 0) {
 			throw new IllegalArgumentException("first result must be >=0");
 		}
-		if (maxResults <= 0 || maxResults < firstResult) {
-			throw new IllegalArgumentException("max Results must be >=0 and < first Result");
+
+		if (maxResults < 0) {
+			throw new IllegalArgumentException("max Results must be >= 0");
 		}
+
 		try {
-			return getCurrentSession().createQuery("from " + clazz.getName()).setFirstResult(firstResult)
-					.setMaxResults(maxResults).list();
+			getCurrentSession().beginTransaction();
+
+			return getCurrentSession().createQuery("from " + clazz.getName())
+					.setFirstResult(firstResult).setMaxResults(maxResults)
+					.list();
 		} finally {
 			getCurrentSession().close();
 		}
@@ -73,8 +81,9 @@ public abstract class BaseHibernateDAO<T extends IEntity, P extends Serializable
 
 	public T create(T entity) throws MyWayException {
 		logger.info("create CALLING");
-		getCurrentSession().beginTransaction();
+
 		try {
+			getCurrentSession().beginTransaction();
 			getCurrentSession().persist(entity);
 			getCurrentSession().getTransaction().commit();
 		} catch (Exception e) {
@@ -87,8 +96,9 @@ public abstract class BaseHibernateDAO<T extends IEntity, P extends Serializable
 
 	public T update(T entity) throws MyWayException {
 		logger.info("update CALLING");
-		getCurrentSession().beginTransaction();
+
 		try {
+			getCurrentSession().beginTransaction();
 			getCurrentSession().merge(entity);
 			getCurrentSession().getTransaction().commit();
 		}
@@ -102,8 +112,9 @@ public abstract class BaseHibernateDAO<T extends IEntity, P extends Serializable
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	public T save(T entity) throws MyWayException {
 		logger.info("save CALLING");
-		getCurrentSession().beginTransaction();
+
 		try {
+			getCurrentSession().beginTransaction();
 			getCurrentSession().saveOrUpdate(entity);
 			getCurrentSession().getTransaction().commit();
 		} finally {
@@ -114,8 +125,9 @@ public abstract class BaseHibernateDAO<T extends IEntity, P extends Serializable
 
 	public void delete(T entity) throws MyWayException {
 		logger.info("delete CALLING");
-		getCurrentSession().beginTransaction();
+
 		try {
+			getCurrentSession().beginTransaction();
 			getCurrentSession().delete(entity);
 			getCurrentSession().getTransaction().commit();
 		} finally {
@@ -127,7 +139,6 @@ public abstract class BaseHibernateDAO<T extends IEntity, P extends Serializable
 		logger.info("deleteById CALLING");
 		T entity = findOne(entityId);
 		delete(entity);
-
 	}
 
 	/**
@@ -135,8 +146,10 @@ public abstract class BaseHibernateDAO<T extends IEntity, P extends Serializable
 	 * @param criteria
 	 * @return all records
 	 */
-	public List<T> findByCriteria(DetachedCriteria criteria) throws MyWayException {
+	public List<T> findByCriteria(DetachedCriteria criteria)
+			throws MyWayException {
 		logger.info("findByCriteria CALLING");
+
 		return findByCriteria(criteria, 0, Integer.MAX_VALUE);
 	}
 
@@ -147,11 +160,14 @@ public abstract class BaseHibernateDAO<T extends IEntity, P extends Serializable
 	 *         if not present necessary amout in db)
 	 */
 	@SuppressWarnings("unchecked")
-	public List<T> findByCriteria(DetachedCriteria criteria, int firstResult, int maxResults) throws MyWayException {
+	public List<T> findByCriteria(DetachedCriteria criteria, int firstResult,
+			int maxResults) throws MyWayException {
 		logger.info("findByCriteria CALLING");
+
 		if (criteria == null) {
 			throw new IllegalArgumentException("criteria can't be null");
 		}
+
 		if (firstResult < 0) {
 			throw new IllegalArgumentException("firstResult can't be < 0");
 		}
@@ -159,11 +175,19 @@ public abstract class BaseHibernateDAO<T extends IEntity, P extends Serializable
 		if (maxResults < 0) {
 			throw new IllegalArgumentException("maxResults can't be < 0");
 		}
-		Transaction tx = getCurrentSession().beginTransaction();
-		List<T> res = (List<T>) criteria.getExecutableCriteria(getCurrentSession()).setFirstResult(firstResult)
-				.setMaxResults(maxResults).list();
-		tx.commit();
-		return res;
+
+		try {
+			getCurrentSession().beginTransaction();
+			List<T> res = (List<T>) criteria
+					.getExecutableCriteria(getCurrentSession())
+					.setFirstResult(firstResult).setMaxResults(maxResults)
+					.list();
+			getCurrentSession().getTransaction().commit();
+
+			return res;
+		} finally {
+			getCurrentSession().close();
+		}
 	}
 
 	protected final Session getCurrentSession() {
