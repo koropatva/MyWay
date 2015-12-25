@@ -20,6 +20,8 @@ import com.hmel.myway.exceptions.MyWayException;
 
 abstract public class BaseCRUDIntegrationTest<T extends IEntity> {
 
+	private static final int DEFAULT_ARRAY_SIZE = 1;
+
 	private static final Logger logger = LoggerFactory
 			.getLogger(BaseCRUDIntegrationTest.class);
 
@@ -82,7 +84,7 @@ abstract public class BaseCRUDIntegrationTest<T extends IEntity> {
 	@Ignore
 	public void testDetachedCriteria() throws MyWayException {
 		logger.info("testDetachedCriteria CALLED");
-		//TODO 
+		// TODO
 		DetachedCriteria detachedCriteria = DetachedCriteria
 				.forClass(Criteria.class);
 		detachedCriteria.add(Restrictions.eq("id", entity.getId()));
@@ -94,6 +96,26 @@ abstract public class BaseCRUDIntegrationTest<T extends IEntity> {
 						"findByCriteria should be searched and find list with lenght equals 1")
 				.isNotNull().asList().hasSize(1);
 
+	}
+
+	@Test
+	public void testFindAll() throws MyWayException {
+		logger.info("testFindAll CALLED");
+		List<T> list = iService.findAll(0, DEFAULT_ARRAY_SIZE);
+		assertThat(list).as("").isNotNull().asList()
+				.hasSize(DEFAULT_ARRAY_SIZE);
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testFindAllWithMinusFirstResult() throws MyWayException {
+		logger.info("testFindAllWithMinusFirstResult CALLED");
+		iService.findAll(-1, 0);
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testFindAllWithMinusMaxResult() throws MyWayException {
+		logger.info("testFindAllWithMinusMaxResult CALLED");
+		iService.findAll(0, -1);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
