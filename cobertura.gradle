@@ -2,7 +2,7 @@ apply plugin: 'java'
 logger.info "Configuring Cobertura Plugin"
 
 dependencies {
-  	testRuntime 'net.sourceforge.cobertura:cobertura:2.1.1'
+  	testRuntime "net.sourceforge.cobertura:cobertura:2.1.1"
 }
 
 def serFile="${project.buildDir}/reports/cobertura/cobertura.ser"
@@ -11,7 +11,7 @@ def classesCopy="${classes}-copy"
 
 task cobertura(type: Test){
   dependencies {
-    testRuntime 'net.sourceforge.cobertura:cobertura:2.1.1'
+    testRuntime "net.sourceforge.cobertura:cobertura:2.1.1"
   }
 
   systemProperty "net.sourceforge.cobertura.datafile", serFile

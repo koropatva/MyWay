@@ -15,8 +15,10 @@ repositories {
 }
 
 dependencies {
-	compile "org.hibernate:hibernate-core:${hibernate.core}"
-	compile "log4j:log4j:${log4j.log4j}"
+	compile("org.hibernate:hibernate-core:${hibernate.core}"){
+		exclude group: "org.slf4j"
+	}
+	
 	compile "mysql:mysql-connector-java:${mysql.connectorJava}"
 	compile "junit:junit:${junit.junit}"
 }

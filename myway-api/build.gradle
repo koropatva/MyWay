@@ -46,11 +46,11 @@ dependencies {
 	}
 	
 	compile "org.hibernate:hibernate-core:${hibernate.core}"
+	
 	compile "org.hibernate:hibernate-c3p0:${hibernate.c3p0}"
 
 	compile "commons-dbcp:commons-dbcp:${commons.dbcp}"
 	compile "mysql:mysql-connector-java:${mysql.connectorJava}"
-	compile "org.slf4j:slf4j-api:${slf4j.api}"
 
 	testCompile "junit:junit:${junit.junit}"		
 	testCompile "org.springframework:spring-test:${springframework.test}"
